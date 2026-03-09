@@ -11,6 +11,9 @@ export default function App() {
   const lenisRef = useRef(null)
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
     // Dynamic import Lenis for smooth scrolling
     import('@studio-freight/lenis').then(({ default: Lenis }) => {
       const lenis = new Lenis({

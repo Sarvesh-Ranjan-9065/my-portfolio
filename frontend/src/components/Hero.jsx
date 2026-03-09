@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const roles = ['Backend Engineer', 'DevOps Architect', 'Cloud Native Builder', 'Go Developer']
 
@@ -6,12 +7,8 @@ export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
-  const [visible, setVisible] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
   const containerRef = useRef(null)
-
-  useEffect(() => {
-    setTimeout(() => setVisible(true), 100)
-  }, [])
 
   // Typewriter effect
   useEffect(() => {
@@ -25,6 +22,10 @@ export default function Hero() {
       setRoleIdx((prev) => (prev + 1) % roles.length)
     } else {
       const speed = isDeleting ? 60 : 100
+      if (shouldReduceMotion) {
+        setDisplayText(current)
+        return
+      }
       timeout = setTimeout(() => {
         setDisplayText(isDeleting
           ? current.slice(0, displayText.length - 1)
@@ -33,14 +34,28 @@ export default function Hero() {
       }, speed)
     }
     return () => clearTimeout(timeout)
-  }, [displayText, isDeleting, roleIdx])
+  }, [displayText, isDeleting, roleIdx, shouldReduceMotion])
+
+  const heroVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: 'easeOut', staggerChildren: 0.12 },
+    },
+  }
+
+  const childVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  }
 
   return (
     <section id="hero" className="grid-bg" style={{
       minHeight: '100vh',
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
-      padding: '120px 48px 80px',
+      padding: '120px 24px 80px',
       position: 'relative',
       overflow: 'hidden',
     }}>
@@ -52,14 +67,15 @@ export default function Hero() {
         opacity: 0.3,
       }} />
 
-      <div ref={containerRef} style={{
-        maxWidth: '900px', width: '100%',
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(30px)',
-        transition: 'all 1s ease',
-      }}>
+      <motion.div
+        ref={containerRef}
+        variants={heroVariants}
+        initial="hidden"
+        animate="visible"
+        style={{ maxWidth: '900px', width: '100%' }}
+      >
         {/* Status badge */}
-        <div style={{
+        <motion.div variants={childVariants} style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
           background: 'rgba(0,245,255,0.06)', border: '1px solid rgba(0,245,255,0.2)',
           borderRadius: '100px', padding: '6px 16px',
@@ -74,10 +90,10 @@ export default function Hero() {
             animation: 'pulse-glow 2s ease-in-out infinite',
           }} />
           AVAILABLE FOR OPPORTUNITIES
-        </div>
+        </motion.div>
 
         {/* Name */}
-        <h1 style={{
+        <motion.h1 variants={childVariants} style={{
           fontFamily: 'Syne', fontWeight: 800,
           fontSize: 'clamp(3rem, 8vw, 7rem)',
           lineHeight: 1.0,
@@ -86,10 +102,10 @@ export default function Hero() {
         }}>
           <span style={{ color: '#e2e8f0' }}>Hi, I'm </span>
           <span className="glow-text" style={{ color: 'var(--cyan)' }}>Sarvesh</span>
-        </h1>
+        </motion.h1>
 
         {/* Typewriter role */}
-        <div style={{
+        <motion.div variants={childVariants} style={{
           fontFamily: 'Space Mono', fontSize: 'clamp(1rem, 3vw, 1.5rem)',
           color: 'rgba(226,232,240,0.7)',
           marginBottom: '32px', minHeight: '48px',
@@ -103,10 +119,10 @@ export default function Hero() {
             animation: 'pulse-glow 1s ease-in-out infinite',
             verticalAlign: 'middle', marginLeft: '2px',
           }} />
-        </div>
+        </motion.div>
 
         {/* Description */}
-        <p style={{
+        <motion.p variants={childVariants} style={{
           fontSize: '18px', lineHeight: 1.8,
           color: 'rgba(226,232,240,0.55)',
           maxWidth: '580px',
@@ -116,12 +132,16 @@ export default function Hero() {
           Building resilient distributed systems, cloud-native infrastructure,
           and high-performance Go services. Obsessed with reliability, scalability,
           and clean architecture.
-        </p>
+        </motion.p>
 
         {/* CTA Buttons */}
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <button
+        <motion.div variants={childVariants} style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <motion.button
+            whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            className="interactive-focus"
+            aria-label="Scroll to projects section"
             style={{
               background: 'var(--cyan)', color: '#020818',
               border: 'none', borderRadius: '6px',
@@ -136,9 +156,13 @@ export default function Hero() {
             onMouseLeave={e => e.target.style.boxShadow = '0 0 30px rgba(0,245,255,0.3)'}
           >
             View Projects
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="interactive-focus"
+            aria-label="Scroll to contact section"
             style={{
               background: 'transparent', color: 'var(--cyan)',
               border: '1px solid rgba(0,245,255,0.4)',
@@ -151,11 +175,11 @@ export default function Hero() {
             onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.borderColor = 'rgba(0,245,255,0.4)' }}
           >
             Get In Touch
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* Tech stack row */}
-        <div style={{
+        <motion.div variants={childVariants} style={{
           marginTop: '80px', display: 'flex', alignItems: 'center', gap: '24px',
           flexWrap: 'wrap',
         }}>
@@ -170,8 +194,8 @@ export default function Hero() {
               paddingBottom: '2px',
             }}>{tech}</span>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <div style={{

@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 
 export default function About() {
   const [visible, setVisible] = useState(false)
   const ref = useRef(null)
+  const valueRefs = useRef([])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -14,14 +16,47 @@ export default function About() {
   }, [])
 
   const stats = [
-    { value: '3+', label: 'Years Experience' },
-    { value: '20+', label: 'Projects Shipped' },
-    { value: '5+', label: 'Cloud Platforms' },
-    { value: '99.9%', label: 'Uptime SLA' },
+    { value: 3, suffix: '+', decimals: 0, label: 'Years Experience' },
+    { value: 20, suffix: '+', decimals: 0, label: 'Projects Shipped' },
+    { value: 5, suffix: '+', decimals: 0, label: 'Cloud Platforms' },
+    { value: 99.9, suffix: '%', decimals: 1, label: 'Uptime SLA' },
   ]
 
+  useEffect(() => {
+    if (!visible) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      stats.forEach((stat, idx) => {
+        const node = valueRefs.current[idx]
+        if (node) node.textContent = `${stat.value.toFixed(stat.decimals)}${stat.suffix}`
+      })
+      return
+    }
+
+    const animations = stats.map((stat, idx) => {
+      const node = valueRefs.current[idx]
+      if (!node) return null
+
+      const tweenState = { count: 0 }
+      return gsap.to(tweenState, {
+        count: stat.value,
+        duration: 1.2,
+        delay: 0.15 * idx,
+        ease: 'power2.out',
+        onUpdate: () => {
+          node.textContent = `${tweenState.count.toFixed(stat.decimals)}${stat.suffix}`
+        },
+      })
+    })
+
+    return () => {
+      animations.forEach((anim) => anim?.kill())
+    }
+  }, [visible])
+
   return (
-    <section id="about" style={{ padding: '120px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
+    <section id="about" className="section-shell" style={{ padding: '120px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
       <div style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(40px)',
@@ -42,7 +77,7 @@ export default function About() {
           <span className="gradient-text">infrastructure fluently</span>
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+        <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
           {/* Left: Text */}
           <div>
             <p style={{
@@ -76,7 +111,7 @@ export default function About() {
           </div>
 
           {/* Right: Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
             {stats.map((stat, i) => (
               <div
                 key={stat.label}
@@ -93,8 +128,8 @@ export default function About() {
                   fontSize: '2.5rem', color: 'var(--cyan)',
                   textShadow: '0 0 20px rgba(0,245,255,0.4)',
                   marginBottom: '8px',
-                }}>
-                  {stat.value}
+                }} ref={(el) => { valueRefs.current[i] = el }}>
+                  0{stat.suffix}
                 </div>
                 <div style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(226,232,240,0.4)', letterSpacing: '1px' }}>
                   {stat.label}

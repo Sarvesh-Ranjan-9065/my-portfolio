@@ -17,7 +17,8 @@ export default function Contact() {
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     if (!form.name || !form.email || !form.message) return
     setStatus('sending')
     try {
@@ -48,7 +49,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" style={{ padding: '120px 48px', maxWidth: '1200px', margin: '0 auto' }}>
+    <section id="contact" className="section-shell" style={{ padding: '120px 48px', maxWidth: '1200px', margin: '0 auto' }}>
       <div ref={ref}>
         <div style={{
           opacity: visible ? 1 : 0,
@@ -69,7 +70,7 @@ export default function Contact() {
           </h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+        <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
           {/* Left */}
           <div style={{
             opacity: visible ? 1 : 0,
@@ -91,6 +92,7 @@ export default function Contact() {
                   {item.label.toUpperCase()}
                 </span>
                 <a href={item.href} target="_blank" rel="noreferrer"
+                  className="interactive-focus"
                   style={{ fontFamily: 'Space Mono', fontSize: '13px', color: 'rgba(226,232,240,0.6)', textDecoration: 'none' }}
                   onMouseEnter={e => e.target.style.color = 'var(--cyan)'}
                   onMouseLeave={e => e.target.style.color = 'rgba(226,232,240,0.6)'}
@@ -111,48 +113,58 @@ export default function Contact() {
               transition: 'all 0.7s ease 0.3s',
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <label style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
+                <label htmlFor="contact-name" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
                   NAME
                 </label>
                 <input
+                  id="contact-name"
                   name="name" value={form.name} onChange={handleChange}
                   placeholder="Your name"
                   style={inputStyle}
+                  required
+                  className="interactive-focus"
                   onFocus={e => e.target.style.borderColor = 'rgba(0,245,255,0.5)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(0,245,255,0.15)'}
                 />
               </div>
               <div>
-                <label style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
+                <label htmlFor="contact-email" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
                   EMAIL
                 </label>
                 <input
+                  id="contact-email"
                   name="email" value={form.email} onChange={handleChange}
                   placeholder="your@email.com" type="email"
                   style={inputStyle}
+                  required
+                  className="interactive-focus"
                   onFocus={e => e.target.style.borderColor = 'rgba(0,245,255,0.5)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(0,245,255,0.15)'}
                 />
               </div>
               <div>
-                <label style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
+                <label htmlFor="contact-message" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
                   MESSAGE
                 </label>
                 <textarea
+                  id="contact-message"
                   name="message" value={form.message} onChange={handleChange}
                   placeholder="Tell me about your project..."
                   rows={5}
                   style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.7 }}
+                  required
+                  className="interactive-focus"
                   onFocus={e => e.target.style.borderColor = 'rgba(0,245,255,0.5)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(0,245,255,0.15)'}
                 />
               </div>
 
               <button
-                onClick={handleSubmit}
+                type="submit"
                 disabled={status === 'sending'}
+                className="interactive-focus"
                 style={{
                   padding: '14px 32px',
                   background: status === 'success' ? '#00ff88' : 'var(--cyan)',
@@ -170,12 +182,17 @@ export default function Contact() {
                 {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent ✓' : 'Send Message'}
               </button>
 
+              <p aria-live="polite" style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'rgba(226,232,240,0.55)', textAlign: 'center', minHeight: '18px' }}>
+                {status === 'sending' ? 'Sending your message...' : ''}
+                {status === 'success' ? 'Message sent successfully.' : ''}
+              </p>
+
               {status === 'error' && (
                 <p style={{ fontFamily: 'Space Mono', fontSize: '12px', color: '#ff4757', textAlign: 'center' }}>
                   Something went wrong. Try again.
                 </p>
               )}
-            </div>
+            </form>
           </div>
         </div>
       </div>
