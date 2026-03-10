@@ -15,25 +15,35 @@ type ContactRequest struct {
 }
 
 type Project struct {
-	ID          int      `json:"id"`
+	ID          int      `json:"id,omitempty"`
 	Title       string   `json:"title"`
+	Period      string   `json:"period,omitempty"`
+	Icon        string   `json:"icon,omitempty"`
+	Badge       string   `json:"badge,omitempty"`
 	Description string   `json:"description"`
+	Bullets     []string `json:"bullets,omitempty"`
 	Tech        []string `json:"tech"`
-	Github      string   `json:"github"`
-	Live        string   `json:"live"`
-	Featured    bool     `json:"featured"`
+	Github      string   `json:"github,omitempty"`
+	Demo        string   `json:"demo,omitempty"`
+	Live        string   `json:"live,omitempty"`
+	Featured    bool     `json:"featured,omitempty"`
 }
 
-type Skill struct {
-	Category string   `json:"category"`
-	Items    []string `json:"items"`
+type SkillCategory struct {
+	Name  string   `json:"name"`
+	Items []string `json:"items"`
 }
 
 func main() {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:3000"},
+		AllowOrigins: []string{
+			"http://localhost:5173",
+			"http://127.0.0.1:5173",
+			"http://localhost:3000",
+			"http://127.0.0.1:3000",
+		},
 		AllowMethods:     []string{"GET", "POST"},
 		AllowHeaders:     []string{"Content-Type"},
 		AllowCredentials: true,
@@ -44,8 +54,8 @@ func main() {
 		api.GET("/health", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Sarvesh Portfolio API"})
 		})
-		api.GET("/projects", getProjects)
-		api.GET("/skills", getSkills)
+		api.GET("/projects", handleGetProjects)
+		api.GET("/skills", handleGetSkills)
 		api.POST("/contact", sendContact)
 	}
 
@@ -62,53 +72,87 @@ func main() {
 	r.Run(":" + port)
 }
 
-func getProjects(c *gin.Context) {
-	projects := []Project{
-		{
-			ID:          1,
-			Title:       "CloudNative Orchestrator",
-			Description: "A Kubernetes-native workload orchestrator built in Go with custom CRDs, auto-scaling policies, and real-time metrics dashboard.",
-			Tech:        []string{"Go", "Kubernetes", "gRPC", "Prometheus", "Docker"},
-			Github:      "https://github.com/sarvesh/cloud-orchestrator",
-			Featured:    true,
-		},
-		{
-			ID:          2,
-			Title:       "DevOps Pipeline Engine",
-			Description: "High-performance CI/CD pipeline engine with parallel job execution, artifact caching, and multi-cloud deployment targets.",
-			Tech:        []string{"Go", "Gin", "Redis", "PostgreSQL", "Terraform"},
-			Github:      "https://github.com/sarvesh/pipeline-engine",
-			Live:        "https://demo.example.com",
-			Featured:    true,
-		},
-		{
-			ID:          3,
-			Title:       "Distributed Tracing System",
-			Description: "OpenTelemetry-compatible distributed tracing system with custom sampling strategies and real-time trace visualization.",
-			Tech:        []string{"Go", "OpenTelemetry", "Jaeger", "Kafka", "ClickHouse"},
-			Github:      "https://github.com/sarvesh/trace-system",
-			Featured:    true,
-		},
-		{
-			ID:          4,
-			Title:       "SecretVault CLI",
-			Description: "Zero-trust secrets management CLI tool with envelope encryption, audit logs, and Vault/AWS KMS integration.",
-			Tech:        []string{"Go", "HashiCorp Vault", "AWS KMS", "CLI"},
-			Github:      "https://github.com/sarvesh/secretvault",
-			Featured:    false,
-		},
-	}
+func handleGetProjects(c *gin.Context) {
+	projects := getProjectsData()
 	c.JSON(http.StatusOK, projects)
 }
 
-func getSkills(c *gin.Context) {
-	skills := []Skill{
-		{Category: "Backend", Items: []string{"Go", "gRPC", "REST APIs", "GraphQL", "PostgreSQL", "Redis", "Kafka"}},
-		{Category: "DevOps", Items: []string{"Docker", "Kubernetes", "Helm", "ArgoCD", "GitHub Actions", "Jenkins"}},
-		{Category: "Cloud & Infrastructure", Items: []string{"AWS", "GCP", "Terraform", "Pulumi", "Ansible", "Linux"}},
-		{Category: "Observability", Items: []string{"Prometheus", "Grafana", "OpenTelemetry", "Jaeger", "ELK Stack"}},
+func getProjectsData() []Project {
+	return []Project{
+		{
+			Title:       "simple-static",
+			Icon:        "🗂️",
+			Badge:       "FEATURED",
+			Description: "A lightweight static file server written in pure Go using only the standard library. No frameworks, no dependencies — just clean Go serving files fast and efficiently.",
+			Bullets: []string{
+				"Built a fully functional static file server using Go's net/http package",
+				"Serves HTML, CSS, JS, and other static assets from a local directory",
+				"Zero external dependencies — pure Go standard library only",
+				"Clean and minimal codebase demonstrating strong Go fundamentals",
+			},
+			Tech:   []string{"Go", "net/http", "Standard Library"},
+			Github: "https://github.com/Sarvesh-Ranjan-9065/simple-static",
+		},
+		{
+			Title:       "go-movie-crud",
+			Icon:        "🎬",
+			Badge:       "FEATURED",
+			Description: "A full CRUD REST API for managing movies, built entirely in Go using only the net/http standard library — no Gin, no Fiber, just raw Go showing solid backend fundamentals.",
+			Bullets: []string{
+				"Implemented full CRUD operations — Create, Read, Update, Delete for movie records",
+				"Built REST API endpoints using Go's net/http package with no external frameworks",
+				"Handled JSON encoding/decoding, routing, and HTTP methods manually",
+				"Demonstrates deep understanding of how Go HTTP servers work under the hood",
+			},
+			Tech:   []string{"Go", "net/http", "REST API", "JSON", "Standard Library"},
+			Github: "https://github.com/Sarvesh-Ranjan-9065/go-movies-crud",
+		},
+		{
+			Title:       "AI Virtual Mall",
+			Period:      "Apr 2025 – May 2025",
+			Icon:        "🛍️",
+			Badge:       "FEATURED",
+			Description: "An AI-powered virtual shopping platform combining React, the Gemini API, and Supabase — featuring a conversational chatbot, product search, and category filtering that boosted user engagement by 40%.",
+			Bullets: []string{
+				"Built with React frontend and Gemini API for AI-driven chatbot assistance",
+				"Integrated Supabase for product data storage and backend connectivity",
+				"Implemented product search and category filtering",
+				"Increased user engagement by 40% through conversational AI + e-commerce UX",
+				"Designed a clean and responsive UI to make product discovery more intuitive",
+			},
+			Tech:   []string{"React", "Gemini API", "Supabase", "JavaScript"},
+			Github: "https://github.com/Sarvesh-Ranjan-9065/Ai-Project",
+		},
+		{
+			Title:       "Air Quality Monitoring System",
+			Icon:        "🌫️",
+			Badge:       "FEATURED",
+			Description: "A monitoring system designed to track and visualize environmental air quality metrics. The project collects sensor data and processes it to monitor pollution levels and environmental conditions in real time.",
+			Bullets: []string{
+				"Developed a monitoring solution for tracking air quality metrics such as pollution levels and environmental conditions",
+				"Implemented backend logic to process and manage incoming sensor data",
+				"Structured the system to support scalable monitoring and future cloud integration",
+				"Demonstrates practical understanding of system monitoring and environmental data handling",
+			},
+			Tech:   []string{"HTML", "CSS", "JavaScript", "Weather API"},
+			Github: "https://github.com/Sarvesh-Ranjan-9065/Chemistry-Project.github.io",
+			Demo:   "https://sarvesh-ranjan-9065.github.io/Chemistry-Project.github.io/",
+		},
 	}
+}
+
+func handleGetSkills(c *gin.Context) {
+	skills := getSkillsData()
 	c.JSON(http.StatusOK, skills)
+}
+
+func getSkillsData() []SkillCategory {
+	return []SkillCategory{
+		{Name: "Languages", Items: []string{"Go", "C++", "Python", "Java", "C"}},
+		{Name: "Cloud & DevOps", Items: []string{"AWS", "Azure", "Docker", "Kubernetes", "Minikube", "NGINX Ingress", "Apache CloudStack"}},
+		{Name: "Backend & Tools", Items: []string{"net/http", "REST APIs", "Git", "GitHub", "Linux"}},
+		{Name: "Currently Learning", Items: []string{"Azure (AZ-900 → AZ-104)", "Go Advanced Patterns", "Docker", "Kubernetes"}},
+	}
 }
 
 func sendContact(c *gin.Context) {
