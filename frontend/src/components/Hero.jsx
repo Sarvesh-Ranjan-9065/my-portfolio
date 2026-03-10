@@ -1,7 +1,35 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
-const roles = ['Backend Engineer', 'DevOps Architect', 'Cloud Native Builder', 'Go Developer']
+const sectionLabel = "01. About";
+const heading = "Engineer who thinks in containers and clusters";
+
+const paragraphs = [
+  "I'm Sarvesh Ranjan, a Computer Science undergrad at Lovely Professional University with a hands-on obsession for cloud-native infrastructure and backend systems. I deploy things on Kubernetes before most people finish reading the docs.",
+  "My work lives at the intersection of backend development and DevOps — containerizing applications with Docker, orchestrating them on Kubernetes, and wiring up autoscaling and ingress controllers to make everything production-ready. I hold an AWS Cloud Foundations certification and I'm actively deepening my skills in cloud architecture.",
+  "When I'm not building, I'm grinding DSA problems on HackerRank and picking up new tools. I'm a strong believer in learning by shipping.",
+];
+
+const tags = ["AWS Certified", "4★ Python on HackerRank", "Open Source Learner"];
+
+const stats = [
+  { label: "Projects Shipped", value: "2" },
+  { label: "Python on HackerRank", value: "4★" },
+  { label: "C++ & Java on HackerRank", value: "2★" },
+  { label: "CGPA @ LPU", value: "6.96" },
+];
+const roles = [
+  "Go Developer",
+  "Cloud & DevOps Enthusiast",
+  "Backend Engineer",
+  "CS Undergrad @ LPU",
+]
+
+const shortBio =
+  "Building backend systems and APIs in Go from the ground up. Currently diving deep into Azure and cloud-native infrastructure. Pursuing B.Tech in CSE at Lovely Professional University.";
+
+const statusBadge = "Open to Opportunities"
+const builtWith = "Go · net/http · Docker · Kubernetes · AWS · Azure"
 
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0)
@@ -89,7 +117,7 @@ export default function Hero() {
             boxShadow: '0 0 8px #00ff88',
             animation: 'pulse-glow 2s ease-in-out infinite',
           }} />
-          AVAILABLE FOR OPPORTUNITIES
+          {statusBadge}
         </motion.div>
 
         {/* Name */}
@@ -129,9 +157,7 @@ export default function Hero() {
           marginBottom: '48px',
           fontFamily: 'Syne',
         }}>
-          Building resilient distributed systems, cloud-native infrastructure,
-          and high-performance Go services. Obsessed with reliability, scalability,
-          and clean architecture.
+          {shortBio}
         </motion.p>
 
         {/* CTA Buttons */}

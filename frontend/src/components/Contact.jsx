@@ -48,6 +48,13 @@ export default function Contact() {
     boxSizing: 'border-box',
   }
 
+  const contact = {
+    email: "roysarvesh5220@gmail.com",
+    github: "https://github.com/Sarvesh-Ranjan-9065",
+    linkedin: "https://linkedin.com/in/sarvesh-ranjan",
+    // mobile: "", // keep hidden unless you want to show it
+  }
+
   return (
     <section id="contact" className="section-shell" style={{ padding: '120px 48px', maxWidth: '1200px', margin: '0 auto' }}>
       <div ref={ref}>
@@ -83,9 +90,9 @@ export default function Contact() {
             </p>
 
             {[
-              { label: 'Email', value: 'sarvesh@example.com', href: 'mailto:sarvesh@example.com' },
-              { label: 'GitHub', value: 'github.com/sarvesh', href: 'https://github.com/sarvesh' },
-              { label: 'LinkedIn', value: 'linkedin.com/in/sarvesh', href: 'https://linkedin.com/in/sarvesh' },
+              { label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
+              { label: 'GitHub', value: contact.github, href: contact.github },
+              { label: 'LinkedIn', value: contact.linkedin, href: contact.linkedin },
             ].map(item => (
               <div key={item.label} style={{ marginBottom: '24px', display: 'flex', gap: '16px', alignItems: 'baseline' }}>
                 <span style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'var(--cyan)', letterSpacing: '2px', minWidth: '80px' }}>

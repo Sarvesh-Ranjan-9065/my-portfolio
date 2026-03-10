@@ -15,11 +15,22 @@ export default function About() {
     return () => observer.disconnect()
   }, [])
 
+  const sectionLabel = "01. About"
+  const heading = "Engineer who thinks in containers and clusters"
+
+  const paragraphs = [
+    "I'm Sarvesh Ranjan, a Computer Science undergrad at Lovely Professional University with a hands-on obsession for cloud-native infrastructure and backend systems. I deploy things on Kubernetes before most people finish reading the docs.",
+    "My work lives at the intersection of backend development and DevOps — containerizing applications with Docker, orchestrating them on Kubernetes, and wiring up autoscaling and ingress controllers to make everything production-ready. I hold an AWS Cloud Foundations certification and I'm actively deepening my skills in cloud architecture.",
+    "When I'm not building, I'm grinding DSA problems on HackerRank and picking up new tools. I'm a strong believer in learning by shipping.",
+  ]
+
+  const tags = ["AWS Certified", "4★ Python on HackerRank", "Open Source Learner"]
+
   const stats = [
-    { value: 3, suffix: '+', decimals: 0, label: 'Years Experience' },
-    { value: 20, suffix: '+', decimals: 0, label: 'Projects Shipped' },
-    { value: 5, suffix: '+', decimals: 0, label: 'Cloud Platforms' },
-    { value: 99.9, suffix: '%', decimals: 1, label: 'Uptime SLA' },
+    { label: "Projects Shipped", value: "2" },
+    { label: "Python on HackerRank", value: "4★" },
+    { label: "C++ & Java on HackerRank", value: "2★" },
+    { label: "CGPA @ LPU", value: "6.96" },
   ]
 
   useEffect(() => {
@@ -67,14 +78,13 @@ export default function About() {
           fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)',
           letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px',
         }}>
-          01. About
+          {sectionLabel}
         </div>
         <h2 style={{
           fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
           color: '#e2e8f0', marginBottom: '64px', lineHeight: 1.1,
         }}>
-          Engineer who speaks<br />
-          <span className="gradient-text">infrastructure fluently</span>
+          {heading}
         </h2>
 
         <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
@@ -84,21 +94,16 @@ export default function About() {
               fontSize: '17px', lineHeight: 1.9, color: 'rgba(226,232,240,0.65)',
               marginBottom: '24px',
             }}>
-              I'm Sarvesh, a Backend & DevOps engineer with a deep obsession for
-              building systems that <span style={{ color: 'var(--cyan)' }}>scale, survive, and perform</span> under pressure.
-              My toolkit of choice is Go — fast, explicit, and built for the cloud.
+              {paragraphs[0]}
             </p>
             <p style={{
               fontSize: '17px', lineHeight: 1.9, color: 'rgba(226,232,240,0.65)',
               marginBottom: '32px',
             }}>
-              I architect cloud-native solutions on Kubernetes, automate everything with
-              Terraform, and instrument systems with full observability. Whether it's a
-              distributed tracing pipeline or a zero-downtime deployment strategy — I live
-              in the infrastructure layer.
+              {paragraphs[1]}
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              {['Open Source Contributor', 'CNCF Member', 'CKA Certified'].map(tag => (
+              {tags.map(tag => (
                 <span key={tag} style={{
                   fontFamily: 'Space Mono', fontSize: '11px',
                   color: 'var(--cyan)', background: 'rgba(0,245,255,0.06)',
@@ -112,28 +117,10 @@ export default function About() {
 
           {/* Right: Stats */}
           <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-            {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className="glass-card glow-border"
-                style={{
-                  padding: '32px 24px', borderRadius: '12px',
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? 'translateY(0)' : 'translateY(20px)',
-                  transition: `all 0.6s ease ${0.2 + i * 0.1}s`,
-                }}
-              >
-                <div style={{
-                  fontFamily: 'Syne', fontWeight: 800,
-                  fontSize: '2.5rem', color: 'var(--cyan)',
-                  textShadow: '0 0 20px rgba(0,245,255,0.4)',
-                  marginBottom: '8px',
-                }} ref={(el) => { valueRefs.current[i] = el }}>
-                  0{stat.suffix}
-                </div>
-                <div style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(226,232,240,0.4)', letterSpacing: '1px' }}>
-                  {stat.label}
-                </div>
+            {stats.map((item) => (
+              <div key={item.label} className="stat-card">
+                <h3>{item.value ?? item.number ?? '-'}</h3>
+                <p>{item.label}</p>
               </div>
             ))}
           </div>

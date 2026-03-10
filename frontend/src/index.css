@@ -200,3 +200,20 @@ textarea:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+.section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
+.section-label { color: #22d3ee; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+.section-title { font-size: clamp(28px, 5vw, 52px); line-height: 1.1; margin: 10px 0 28px; color: #e2e8f0; }
+
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.project-card { background: #071225; border: 1px solid #123; border-radius: 12px; padding: 20px; }
+.project-card h3 { margin: 0 0 10px; color: #e2e8f0; font-size: 20px; }
+.project-card p { color: #94a3b8; line-height: 1.6; }
+
+.tech-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chip { border: 1px solid #164e63; color: #67e8f9; border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+
+.link-row { display: flex; gap: 14px; margin-top: 14px; }
+.link-row a { color: #22d3ee; text-decoration: none; font-weight: 600; }
+
+.stat-card h3 { font-size: 36px; margin: 0; color: #22d3ee; }
