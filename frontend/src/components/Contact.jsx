@@ -67,7 +67,7 @@ export default function Contact() {
           <div style={{
             fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)',
             letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px',
-          }}>04. Contact</div>
+          }}>10. Contact</div>
           <h2 style={{
             fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
             color: '#e2e8f0', lineHeight: 1.1,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const links = ['About', 'Projects', 'Skills', 'Contact']
+const links = ['About', 'Achievements', 'Projects', 'Education', 'Training', 'Certifications', 'Skills', 'Resume', 'Fun', 'Contact']
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -61,8 +61,7 @@ export default function Navbar() {
     document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const resumeHref =
-    'https://drive.google.com/file/d/1zbRiygp-G6vVptHW1kj6CWeak646Qpvz/view?usp=drivesdk'
+  const resumeHref = '/General_CV_Updated.pdf'
 
   return (
     <>
@@ -116,8 +115,7 @@ export default function Navbar() {
 
           <a
             href={resumeHref}
-            target="_blank"
-            rel="noreferrer"
+            download="Sarvesh_Ranjan_Resume.pdf"
             className="interactive-focus"
             style={{
               fontFamily: 'Space Mono',
@@ -170,8 +168,7 @@ export default function Navbar() {
 
           <a
             href={resumeHref}
-            target="_blank"
-            rel="noreferrer"
+            download="Sarvesh_Ranjan_Resume.pdf"
             onClick={() => setMobileOpen(false)}
             style={{
               marginTop: '8px',

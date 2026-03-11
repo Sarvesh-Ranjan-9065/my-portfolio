@@ -2,8 +2,14 @@ import { useEffect, useRef } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
+import Achievements from './components/Achievements'
 import Projects from './components/Projects'
+import Education from './components/Education'
+import Training from './components/Training'
+import Certifications from './components/Certifications'
+import Resume from './components/Resume'
 import Skills from './components/Skills'
+import Fun from './components/Fun'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
@@ -66,8 +72,14 @@ export default function App() {
         <Navbar />
         <Hero />
         <About />
+        <Achievements />
         <Projects />
+        <Education />
+        <Training />
+        <Certifications />
+        <Resume />
         <Skills />
+        <Fun />
         <Contact />
         <Footer />
       </div>

@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
 
 export default function About() {
   const [visible, setVisible] = useState(false)
   const ref = useRef(null)
-  const valueRefs = useRef([])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -27,44 +25,11 @@ export default function About() {
   const tags = ["AWS Certified", "4★ Python on HackerRank", "Open Source Learner"]
 
   const stats = [
-    { label: "Projects Shipped", value: "2" },
-    { label: "Python on HackerRank", value: "4★" },
-    { label: "C++ & Java on HackerRank", value: "2★" },
-    { label: "CGPA @ LPU", value: "6.96" },
+    { label: "Projects", value: "2" },
+    { label: "LeetCode", value: "100+" },
+    { label: "Python", value: "4★" },
+    { label: "CGPA", value: "6.96" },
   ]
-
-  useEffect(() => {
-    if (!visible) return
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) {
-      stats.forEach((stat, idx) => {
-        const node = valueRefs.current[idx]
-        if (node) node.textContent = `${stat.value.toFixed(stat.decimals)}${stat.suffix}`
-      })
-      return
-    }
-
-    const animations = stats.map((stat, idx) => {
-      const node = valueRefs.current[idx]
-      if (!node) return null
-
-      const tweenState = { count: 0 }
-      return gsap.to(tweenState, {
-        count: stat.value,
-        duration: 1.2,
-        delay: 0.15 * idx,
-        ease: 'power2.out',
-        onUpdate: () => {
-          node.textContent = `${tweenState.count.toFixed(stat.decimals)}${stat.suffix}`
-        },
-      })
-    })
-
-    return () => {
-      animations.forEach((anim) => anim?.kill())
-    }
-  }, [visible])
 
   return (
     <section id="about" className="section-shell" style={{ padding: '120px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
@@ -96,12 +61,8 @@ export default function About() {
             }}>
               {paragraphs[0]}
             </p>
-            <p style={{
-              fontSize: '17px', lineHeight: 1.9, color: 'rgba(226,232,240,0.65)',
-              marginBottom: '32px',
-            }}>
-              {paragraphs[1]}
-            </p>
+            <p style={{ fontSize: '17px', lineHeight: 1.9, color: 'rgba(226,232,240,0.65)', marginBottom: '24px' }}>{paragraphs[1]}</p>
+            <p style={{ fontSize: '17px', lineHeight: 1.9, color: 'rgba(226,232,240,0.65)', marginBottom: '32px' }}>{paragraphs[2]}</p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               {tags.map(tag => (
                 <span key={tag} style={{
@@ -116,13 +77,34 @@ export default function About() {
           </div>
 
           {/* Right: Stats */}
-          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-            {stats.map((item) => (
-              <div key={item.label} className="stat-card">
-                <h3>{item.value ?? item.number ?? '-'}</h3>
-                <p>{item.label}</p>
-              </div>
-            ))}
+          <div>
+            <div className="glass-card" style={{
+              borderRadius: '18px',
+              padding: '16px',
+              marginBottom: '20px',
+              boxShadow: '0 0 24px rgba(0,245,255,0.22)',
+            }}>
+              <img
+                src="/sarvesh.jpg"
+                alt="Sarvesh portrait"
+                style={{
+                  width: '100%',
+                  height: '320px',
+                  objectFit: 'cover',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(0,245,255,0.35)',
+                }}
+              />
+            </div>
+
+            <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              {stats.map((item) => (
+                <div key={item.label} className="stat-card">
+                  <h3>{item.value}</h3>
+                  <p>{item.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
