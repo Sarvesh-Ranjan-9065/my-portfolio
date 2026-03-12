@@ -24,23 +24,36 @@ export default function Hero() {
   const containerRef = useRef(null)
 
   useEffect(() => {
+    const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches
+    const isSlowDevice = (navigator.hardwareConcurrency || 4) <= 4
+
+    if (shouldReduceMotion || !isLargeScreen || isSlowDevice) return
+
+    let active = true
+
     initParticlesEngine(async (engine) => {
       await loadSlim(engine)
-    }).then(() => setParticlesReady(true))
-  }, [])
+    }).then(() => {
+      if (active) setParticlesReady(true)
+    })
+
+    return () => {
+      active = false
+    }
+  }, [shouldReduceMotion])
 
   const particlesOptions = useMemo(() => ({
     fullScreen: false,
-    fpsLimit: 60,
+    fpsLimit: 30,
     particles: {
-      number: { value: 70, density: { enable: true, area: 900 } },
+      number: { value: 24, density: { enable: true, area: 1400 } },
       color: { value: '#00f5ff' },
-      opacity: { value: 0.2, random: { enable: true, minimumValue: 0.08 } },
-      size: { value: { min: 1, max: 3 } },
-      move: { enable: true, speed: 0.4, direction: 'none', outModes: { default: 'out' } },
-      links: { enable: true, distance: 140, color: '#00f5ff', opacity: 0.06, width: 1 },
+      opacity: { value: 0.12, random: { enable: true, minimumValue: 0.05 } },
+      size: { value: { min: 1, max: 2 } },
+      move: { enable: true, speed: 0.2, direction: 'none', outModes: { default: 'out' } },
+      links: { enable: false },
     },
-    detectRetina: true,
+    detectRetina: false,
   }), [])
 
   const particlesLoaded = useCallback(() => {}, [])
@@ -105,11 +118,11 @@ export default function Hero() {
       )}
 
       {/* Scanline effect */}
-      <div style={{
+      <div className="hero-scanlines" style={{
         position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none',
         background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.02) 50%)',
         backgroundSize: '100% 4px',
-        opacity: 0.3, zIndex: 1,
+        opacity: 0.12, zIndex: 1,
       }} />
 
       <motion.div
@@ -182,7 +195,7 @@ export default function Hero() {
           <motion.button
             whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: shouldReduceMotion ? 'auto' : 'smooth' })}
             className="interactive-focus"
             aria-label="Scroll to projects section"
             style={{
@@ -203,7 +216,7 @@ export default function Hero() {
           <motion.button
             whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: shouldReduceMotion ? 'auto' : 'smooth' })}
             className="interactive-focus"
             aria-label="Scroll to contact section"
             style={{

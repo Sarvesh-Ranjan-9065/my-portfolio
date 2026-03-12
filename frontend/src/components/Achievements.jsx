@@ -2,17 +2,32 @@ import { useEffect, useRef, useState } from 'react'
 
 function useCountUp(target, duration, start) {
   const [count, setCount] = useState(0)
+
   useEffect(() => {
-    if (!start) return
+    if (!start) {
+      setCount(0)
+      return
+    }
+
     let startTime = null
+    let raf = 0
+
     const step = (timestamp) => {
       if (!startTime) startTime = timestamp
       const progress = Math.min((timestamp - startTime) / duration, 1)
       setCount(Math.floor(progress * target))
-      if (progress < 1) requestAnimationFrame(step)
+      if (progress < 1) {
+        raf = requestAnimationFrame(step)
+      }
     }
-    requestAnimationFrame(step)
+
+    raf = requestAnimationFrame(step)
+
+    return () => {
+      cancelAnimationFrame(raf)
+    }
   }, [start, target, duration])
+
   return count
 }
 
@@ -52,7 +67,12 @@ export default function Achievements() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
       { threshold: 0.2 }
     )
     if (ref.current) observer.observe(ref.current)
@@ -74,7 +94,7 @@ export default function Achievements() {
 }
 
 function AchievementCard({ item, visible }) {
-  const count = useCountUp(item.countTarget, 1500, visible)
+  const count = useCountUp(item.countTarget, 900, visible)
 
   return (
     <article className="glass-card achievement-card" style={{

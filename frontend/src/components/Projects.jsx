@@ -24,7 +24,12 @@ export default function Projects() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
       { threshold: 0.1 }
     )
     if (ref.current) observer.observe(ref.current)
@@ -70,7 +75,7 @@ export default function Projects() {
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? 'translateY(0)' : 'translateY(30px)',
-              transition: `all 0.5s ease ${i * 0.1}s`,
+              transition: 'opacity 0.45s ease, transform 0.45s ease',
               position: 'relative',
               overflow: 'hidden',
             }}
