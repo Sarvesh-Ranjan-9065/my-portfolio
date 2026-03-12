@@ -16,7 +16,12 @@ export default function Skills() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
       { threshold: 0.1 }
     )
     if (ref.current) observer.observe(ref.current)
@@ -92,10 +97,6 @@ export default function Skills() {
                   opacity: 0.4,
                 }} />
 
-                <div style={{
-                  fontSize: '11px', marginBottom: '12px', letterSpacing: '2px',
-                  color: 'rgba(0,245,255,0.55)', fontFamily: 'Space Mono', textTransform: 'uppercase',
-                }}>Category</div>
                 <h3 style={{
                   fontFamily: 'Syne', fontWeight: 700, fontSize: '1rem',
                   color: 'var(--cyan)', marginBottom: '20px',

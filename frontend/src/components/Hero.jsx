@@ -103,7 +103,7 @@ export default function Hero() {
       minHeight: '100vh',
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
-      padding: '120px 24px 80px',
+      padding: '88px 24px 64px',
       position: 'relative',
       overflow: 'hidden',
     }}>
@@ -130,7 +130,7 @@ export default function Hero() {
         variants={heroVariants}
         initial="hidden"
         animate="visible"
-        style={{ maxWidth: '900px', width: '100%', position: 'relative', zIndex: 2 }}
+        style={{ maxWidth: '900px', width: '100%', position: 'relative', zIndex: 2, marginTop: '10px' }}
       >
         {/* Status badge */}
         <motion.div variants={childVariants} style={{
@@ -236,18 +236,20 @@ export default function Hero() {
 
         {/* Tech stack row */}
         <motion.div variants={childVariants} style={{
-          marginTop: '80px', display: 'flex', alignItems: 'center', gap: '24px',
+          marginTop: '56px', display: 'flex', alignItems: 'center', gap: '14px',
           flexWrap: 'wrap',
         }}>
-          <span style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(226,232,240,0.3)', letterSpacing: '2px' }}>
+          <span style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(226,232,240,0.3)', letterSpacing: '2px', marginRight: '4px' }}>
             BUILT WITH
           </span>
-          {['Go', 'Kubernetes', 'Docker', 'AWS', 'Terraform', 'Prometheus'].map(tech => (
+          {['Go', 'Docker', 'Kubernetes', 'AWS', 'Azure'].map(tech => (
             <span key={tech} style={{
               fontFamily: 'Space Mono', fontSize: '12px',
-              color: 'rgba(0,245,255,0.5)',
-              borderBottom: '1px solid rgba(0,245,255,0.15)',
-              paddingBottom: '2px',
+              color: 'rgba(0,245,255,0.78)',
+              border: '1px solid rgba(0,245,255,0.18)',
+              borderRadius: '999px',
+              padding: '6px 12px',
+              background: 'rgba(0,245,255,0.05)',
             }}>{tech}</span>
           ))}
         </motion.div>

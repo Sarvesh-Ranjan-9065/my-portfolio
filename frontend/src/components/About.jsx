@@ -7,7 +7,12 @@ export default function About() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
       { threshold: 0.2 }
     )
     if (ref.current) observer.observe(ref.current)
@@ -95,10 +100,14 @@ export default function About() {
                 loading="lazy"
                 style={{
                   width: '100%', height: '320px', objectFit: 'cover',
+                  objectPosition: 'center 18%',
                   borderRadius: '12px',
                   border: imgHover ? '1px solid rgba(0,245,255,0.5)' : '1px solid rgba(0,245,255,0.35)',
                   transition: 'all 0.4s ease',
                   filter: imgHover ? 'brightness(1.05)' : 'brightness(1)',
+                  transform: imgHover ? 'scale(0.84)' : 'scale(0.8)',
+                  transformOrigin: 'center top',
+                  background: '#03111f',
                 }}
               />
             </div>
