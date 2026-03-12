@@ -1,23 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import Particles, { initParticlesEngine } from '@tsparticles/react'
+import { loadSlim } from '@tsparticles/slim'
 
-const sectionLabel = "01. About";
-const heading = "Engineer who thinks in containers and clusters";
-
-const paragraphs = [
-  "I'm Sarvesh Ranjan, a Computer Science undergrad at Lovely Professional University with a hands-on obsession for cloud-native infrastructure and backend systems. I deploy things on Kubernetes before most people finish reading the docs.",
-  "My work lives at the intersection of backend development and DevOps — containerizing applications with Docker, orchestrating them on Kubernetes, and wiring up autoscaling and ingress controllers to make everything production-ready. I hold an AWS Cloud Foundations certification and I'm actively deepening my skills in cloud architecture.",
-  "When I'm not building, I'm grinding DSA problems on HackerRank and picking up new tools. I'm a strong believer in learning by shipping.",
-];
-
-const tags = ["AWS Certified", "4★ Python on HackerRank", "Open Source Learner"];
-
-const stats = [
-  { label: "Projects Shipped", value: "2" },
-  { label: "Python on HackerRank", value: "4★" },
-  { label: "C++ & Java on HackerRank", value: "2★" },
-  { label: "CGPA @ LPU", value: "6.96" },
-];
 const roles = [
   "Go Developer",
   "Cloud & DevOps Enthusiast",
@@ -26,17 +11,39 @@ const roles = [
 ]
 
 const shortBio =
-  "Building backend systems and APIs in Go from the ground up. Currently diving deep into Azure and cloud-native infrastructure. Pursuing B.Tech in CSE at Lovely Professional University.";
+  "I write Go. I break things in Kubernetes. I fix them too. Currently obsessing over Azure and whatever comes next."
 
 const statusBadge = "Open to Opportunities"
-const builtWith = "Go · net/http · Docker · Kubernetes · AWS · Azure"
 
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
+  const [particlesReady, setParticlesReady] = useState(false)
   const shouldReduceMotion = useReducedMotion()
   const containerRef = useRef(null)
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine)
+    }).then(() => setParticlesReady(true))
+  }, [])
+
+  const particlesOptions = useMemo(() => ({
+    fullScreen: false,
+    fpsLimit: 60,
+    particles: {
+      number: { value: 70, density: { enable: true, area: 900 } },
+      color: { value: '#00f5ff' },
+      opacity: { value: 0.2, random: { enable: true, minimumValue: 0.08 } },
+      size: { value: { min: 1, max: 3 } },
+      move: { enable: true, speed: 0.4, direction: 'none', outModes: { default: 'out' } },
+      links: { enable: true, distance: 140, color: '#00f5ff', opacity: 0.06, width: 1 },
+    },
+    detectRetina: true,
+  }), [])
+
+  const particlesLoaded = useCallback(() => {}, [])
 
   // Typewriter effect
   useEffect(() => {
@@ -87,12 +94,22 @@ export default function Hero() {
       position: 'relative',
       overflow: 'hidden',
     }}>
+      {/* Particles background */}
+      {particlesReady && (
+        <Particles
+          id="hero-particles"
+          particlesLoaded={particlesLoaded}
+          options={particlesOptions}
+          style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}
+        />
+      )}
+
       {/* Scanline effect */}
       <div style={{
         position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none',
         background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.02) 50%)',
         backgroundSize: '100% 4px',
-        opacity: 0.3,
+        opacity: 0.3, zIndex: 1,
       }} />
 
       <motion.div
@@ -100,7 +117,7 @@ export default function Hero() {
         variants={heroVariants}
         initial="hidden"
         animate="visible"
-        style={{ maxWidth: '900px', width: '100%' }}
+        style={{ maxWidth: '900px', width: '100%', position: 'relative', zIndex: 2 }}
       >
         {/* Status badge */}
         <motion.div variants={childVariants} style={{
@@ -228,6 +245,7 @@ export default function Hero() {
         position: 'absolute', bottom: '40px', left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+        zIndex: 2,
       }}>
         <span style={{ fontFamily: 'Space Mono', fontSize: '10px', color: 'rgba(226,232,240,0.3)', letterSpacing: '2px' }}>SCROLL</span>
         <div style={{

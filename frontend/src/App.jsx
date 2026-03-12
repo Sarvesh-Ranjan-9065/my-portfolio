@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -15,12 +15,13 @@ import Footer from './components/Footer'
 
 export default function App() {
   const lenisRef = useRef(null)
+  const [cursorPos, setCursorPos] = useState({ x: -200, y: -200 })
 
+  // Smooth scrolling
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
-    // Dynamic import Lenis for smooth scrolling
     import('@studio-freight/lenis').then(({ default: Lenis }) => {
       const lenis = new Lenis({
         duration: 1.4,
@@ -28,23 +29,67 @@ export default function App() {
         smooth: true,
       })
       lenisRef.current = lenis
-
-      function raf(time) {
-        lenis.raf(time)
-        requestAnimationFrame(raf)
-      }
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf) }
       requestAnimationFrame(raf)
-    }).catch(() => {
-      // Lenis not available, use native scroll
-    })
+    }).catch(() => {})
 
-    return () => {
-      if (lenisRef.current) lenisRef.current.destroy()
+    return () => { if (lenisRef.current) lenisRef.current.destroy() }
+  }, [])
+
+  // Cursor glow effect
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
+    let raf
+    const onMove = (e) => {
+      if (raf) cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        setCursorPos({ x: e.clientX, y: e.clientY })
+      })
     }
+    window.addEventListener('mousemove', onMove, { passive: true })
+    return () => { window.removeEventListener('mousemove', onMove); if (raf) cancelAnimationFrame(raf) }
+  }, [])
+
+  // Scroll-triggered slide-in for section headings
+  useEffect(() => {
+    const headings = document.querySelectorAll('.slide-in-heading')
+    if (!headings.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('slide-in-visible')
+          }
+        })
+      },
+      { threshold: 0.15 }
+    )
+    headings.forEach(h => observer.observe(h))
+    return () => observer.disconnect()
   }, [])
 
   return (
     <div className="noise relative min-h-screen" style={{ background: 'var(--bg)' }}>
+      {/* Cursor glow */}
+      <div
+        className="cursor-glow"
+        style={{
+          position: 'fixed',
+          left: cursorPos.x - 200,
+          top: cursorPos.y - 200,
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0,245,255,0.07) 0%, rgba(0,245,255,0.02) 40%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 9999,
+          transition: 'left 0.15s ease-out, top 0.15s ease-out',
+        }}
+      />
+
       {/* Ambient orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div style={{

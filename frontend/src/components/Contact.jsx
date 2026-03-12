@@ -68,12 +68,12 @@ export default function Contact() {
             fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)',
             letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px',
           }}>10. Contact</div>
-          <h2 style={{
+          <h2 className="slide-in-heading" style={{
             fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
             color: '#e2e8f0', lineHeight: 1.1,
           }}>
-            Let's build something<br />
-            <span className="gradient-text">extraordinary together</span>
+            Got something to build?<br />
+            <span className="gradient-text">Let's talk.</span>
           </h2>
         </div>
 
@@ -85,8 +85,7 @@ export default function Contact() {
             transition: 'all 0.7s ease 0.2s',
           }}>
             <p style={{ fontSize: '17px', lineHeight: 1.8, color: 'rgba(226,232,240,0.55)', marginBottom: '48px' }}>
-              Whether you're looking to build cloud-native infrastructure, scale your backend systems,
-              or automate your DevOps pipeline — I'd love to hear about your project.
+              Have a project in mind, need someone for cloud-native infra, or just want to chat about Go and Kubernetes? Drop a message — I'm always up for building cool stuff.
             </p>
 
             {[

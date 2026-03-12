@@ -1,8 +1,8 @@
 export default function Training() {
   return (
     <section id="training" className="section-shell" style={{ padding: '80px 48px 40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <p className="section-label">05. Training</p>
-      <h2 className="section-title" style={{ marginBottom: '28px' }}>Hands-On Training</h2>
+      <p className="section-label slide-in-heading">05. Training</p>
+      <h2 className="section-title slide-in-heading" style={{ marginBottom: '28px' }}>Hands-on stuff I've done.</h2>
 
       <div className="timeline-wrap">
         <article className="timeline-item glass-card">
