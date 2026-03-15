@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState } from 'react'
 import { jokes } from '../data/jokes'
 
 function getRandomIndex(max, current) {
@@ -25,8 +25,7 @@ export default function Fun() {
 
   return (
     <section id="fun" className="section-shell" style={{ padding: '90px 48px 60px', maxWidth: '980px', margin: '0 auto' }}>
-      <p className="section-label slide-in-heading">09. fun.exe()</p>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '24px' }}>Code laughs, randomized.</h2>
+      <h2 className="section-title slide-in-heading" style={{ marginBottom: '24px' }}>Dev jokes.</h2>
 
       <article className="glass-card fun-card">
         <p className="fun-label">// because not everything needs a ticket</p>

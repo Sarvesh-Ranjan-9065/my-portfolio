@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import Particles, { initParticlesEngine } from '@tsparticles/react'
-import { loadSlim } from '@tsparticles/slim'
 
 const roles = [
   "Go Developer",
@@ -11,7 +9,7 @@ const roles = [
 ]
 
 const shortBio =
-  "I write Go. I break things in Kubernetes. I fix them too. Currently obsessing over Azure and whatever comes next."
+  "CS student who mostly writes Go and deploys things on Kubernetes. Learning cloud (AWS + Azure) and trying to get better at backend systems one project at a time."
 
 const statusBadge = "Open to Opportunities"
 
@@ -19,44 +17,8 @@ export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
-  const [particlesReady, setParticlesReady] = useState(false)
   const shouldReduceMotion = useReducedMotion()
   const containerRef = useRef(null)
-
-  useEffect(() => {
-    const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches
-    const isSlowDevice = (navigator.hardwareConcurrency || 4) <= 4
-
-    if (shouldReduceMotion || !isLargeScreen || isSlowDevice) return
-
-    let active = true
-
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine)
-    }).then(() => {
-      if (active) setParticlesReady(true)
-    })
-
-    return () => {
-      active = false
-    }
-  }, [shouldReduceMotion])
-
-  const particlesOptions = useMemo(() => ({
-    fullScreen: false,
-    fpsLimit: 30,
-    particles: {
-      number: { value: 24, density: { enable: true, area: 1400 } },
-      color: { value: '#00f5ff' },
-      opacity: { value: 0.12, random: { enable: true, minimumValue: 0.05 } },
-      size: { value: { min: 1, max: 2 } },
-      move: { enable: true, speed: 0.2, direction: 'none', outModes: { default: 'out' } },
-      links: { enable: false },
-    },
-    detectRetina: false,
-  }), [])
-
-  const particlesLoaded = useCallback(() => {}, [])
 
   // Typewriter effect
   useEffect(() => {
@@ -107,24 +69,6 @@ export default function Hero() {
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Particles background */}
-      {particlesReady && (
-        <Particles
-          id="hero-particles"
-          particlesLoaded={particlesLoaded}
-          options={particlesOptions}
-          style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}
-        />
-      )}
-
-      {/* Scanline effect */}
-      <div className="hero-scanlines" style={{
-        position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none',
-        background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.02) 50%)',
-        backgroundSize: '100% 4px',
-        opacity: 0.12, zIndex: 1,
-      }} />
-
       <motion.div
         ref={containerRef}
         variants={heroVariants}
@@ -159,7 +103,7 @@ export default function Hero() {
           letterSpacing: '-2px',
         }}>
           <span style={{ color: '#e2e8f0' }}>Hi, I'm </span>
-          <span className="glow-text" style={{ color: 'var(--cyan)' }}>Sarvesh</span>
+          <span style={{ color: 'var(--cyan)' }}>Sarvesh</span>
         </motion.h1>
 
         {/* Typewriter role */}
@@ -205,11 +149,11 @@ export default function Hero() {
               fontFamily: 'Space Mono', fontSize: '13px',
               fontWeight: 700, letterSpacing: '1px',
               textTransform: 'uppercase',
-              boxShadow: '0 0 30px rgba(0,245,255,0.3)',
+              boxShadow: '0 0 20px rgba(0,245,255,0.2)',
               transition: 'all 0.3s',
             }}
-            onMouseEnter={e => e.target.style.boxShadow = '0 0 50px rgba(0,245,255,0.6)'}
-            onMouseLeave={e => e.target.style.boxShadow = '0 0 30px rgba(0,245,255,0.3)'}
+            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 30px rgba(0,245,255,0.35)'}
+            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 20px rgba(0,245,255,0.2)'}
           >
             View Projects
           </motion.button>
@@ -240,9 +184,9 @@ export default function Hero() {
           flexWrap: 'wrap',
         }}>
           <span style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(226,232,240,0.3)', letterSpacing: '2px', marginRight: '4px' }}>
-            BUILT WITH
+            TECH I USE
           </span>
-          {['Go', 'Docker', 'Kubernetes', 'AWS', 'Azure'].map(tech => (
+          {['Go', 'Kubernetes', 'Docker', 'AWS', 'Azure'].map(tech => (
             <span key={tech} style={{
               fontFamily: 'Space Mono', fontSize: '12px',
               color: 'rgba(0,245,255,0.78)',

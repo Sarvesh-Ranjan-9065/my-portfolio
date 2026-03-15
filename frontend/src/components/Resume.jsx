@@ -9,8 +9,7 @@ export default function Resume() {
 
   return (
     <section id="resume" className="section-shell" style={{ padding: '90px 48px 40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <p className="section-label slide-in-heading">07. Resume</p>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '20px' }}>Profile Snapshot and Full Resume</h2>
+      <h2 className="section-title slide-in-heading" style={{ marginBottom: '20px' }}>Resume.</h2>
 
       {/* View toggle */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '28px' }}>

@@ -34,8 +34,7 @@ export default function Education() {
 
   return (
     <section id="education" className="section-shell" style={{ padding: '80px 48px 40px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
-      <p className="section-label slide-in-heading">04. Education</p>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '28px' }}>Where I've studied.</h2>
+      <h2 className="section-title slide-in-heading" style={{ marginBottom: '28px' }}>Education.</h2>
 
       <div className="timeline-wrap">
         {education.map((item, i) => (
@@ -44,7 +43,6 @@ export default function Education() {
             className="timeline-item glass-card"
             style={{
               borderLeft: '3px solid var(--cyan)',
-              boxShadow: '−3px 0 12px rgba(0,245,255,0.15)',
               opacity: visible ? 1 : 0,
               transform: visible ? 'translateY(0)' : 'translateY(20px)',
               transition: `all 0.5s ease ${i * 0.12}s`,

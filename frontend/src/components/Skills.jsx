@@ -42,15 +42,11 @@ export default function Skills() {
           transition: 'all 0.7s ease',
           marginBottom: '40px',
         }}>
-          <div className="slide-in-heading" style={{
-            fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)',
-            letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px',
-          }}>08. Skills</div>
           <h2 className="slide-in-heading" style={{
             fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
             color: '#e2e8f0', lineHeight: 1.1,
           }}>
-            What I work with.
+            Skills.
           </h2>
         </div>
 
@@ -123,7 +119,7 @@ export default function Skills() {
                         e.target.style.color = '#dafeff'
                         e.target.style.borderColor = 'rgba(0,245,255,0.45)'
                         e.target.style.background = 'rgba(0,245,255,0.12)'
-                        e.target.style.boxShadow = '0 0 12px rgba(0,245,255,0.2)'
+                        e.target.style.boxShadow = '0 0 6px rgba(0,245,255,0.1)'
                       }}
                       onMouseLeave={e => {
                         e.target.style.color = '#9df8ff'

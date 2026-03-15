@@ -72,8 +72,7 @@ export default function Contact() {
             fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
             color: '#e2e8f0', lineHeight: 1.1,
           }}>
-            Got something to build?<br />
-            <span className="gradient-text">Let's talk.</span>
+            Get in touch.
           </h2>
         </div>
 
@@ -85,7 +84,7 @@ export default function Contact() {
             transition: 'all 0.7s ease 0.2s',
           }}>
             <p style={{ fontSize: '17px', lineHeight: 1.8, color: 'rgba(226,232,240,0.55)', marginBottom: '48px' }}>
-              Have a project in mind, need someone for cloud-native infra, or just want to chat about Go and Kubernetes? Drop a message — I'm always up for building cool stuff.
+              Have a project idea, want to collaborate, or just want to say hi? Feel free to reach out.
             </p>
 
             {[

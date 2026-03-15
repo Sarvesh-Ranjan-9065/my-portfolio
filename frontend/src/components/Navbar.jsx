@@ -78,9 +78,7 @@ export default function Navbar() {
         }}
       >
         <div style={{ fontFamily: 'Space Mono', fontSize: '18px', fontWeight: 700 }}>
-          <span style={{ color: 'var(--cyan)' }}>&lt;</span>
           <span style={{ color: '#e2e8f0' }}>Sarvesh</span>
-          <span style={{ color: 'var(--cyan)' }}> /&gt;</span>
         </div>
 
         <button

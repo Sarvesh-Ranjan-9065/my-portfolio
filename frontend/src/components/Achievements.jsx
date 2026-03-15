@@ -33,30 +33,40 @@ function useCountUp(target, duration, start) {
 
 const achievements = [
   {
+    title: '50-Day Streak',
+    countTarget: 50,
+    suffix: ' days',
+    icon: null,
+    badge: '/leetcode-50days-badge.png',
+    platform: 'LeetCode',
+    line: 'Consistent daily problem solving streak in 2026',
+    link: 'https://leetcode.com/u/sarvesh69/',
+  },
+  {
     title: '112 Problems Solved',
     countTarget: 112,
     suffix: '',
-    icon: '💻',
+    icon: null,
     platform: 'LeetCode',
-    line: 'Grinding DSA because it makes the real code better',
+    line: 'DSA practice across arrays, trees, graphs, and more',
     link: 'https://leetcode.com/u/sarvesh69/',
   },
   {
     title: '4-Star Python',
     countTarget: 4,
-    suffix: '★',
-    icon: '⭐',
+    suffix: '-Star',
+    icon: null,
     platform: 'HackerRank',
-    line: 'Algorithms, data handling, and plenty of edge cases',
+    line: 'Algorithms and problem solving in Python',
     link: 'https://www.hackerrank.com/profile/sarveshbhai587',
   },
   {
     title: '2-Star C++ and Java',
     countTarget: 2,
-    suffix: '★',
-    icon: '⭐',
+    suffix: '-Star',
+    icon: null,
     platform: 'HackerRank',
-    line: 'OOP fundamentals and language basics covered',
+    line: 'OOP fundamentals and language basics',
     link: 'https://www.hackerrank.com/profile/roysarvesh5220',
   },
 ]
@@ -81,8 +91,7 @@ export default function Achievements() {
 
   return (
     <section id="achievements" className="section-shell" style={{ padding: '110px 48px 40px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
-      <p className="section-label slide-in-heading">02. Achievements</p>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '28px' }}>Numbers that actually mean something.</h2>
+      <h2 className="section-title slide-in-heading" style={{ marginBottom: '28px' }}>Achievements.</h2>
 
       <div className="achievements-grid">
         {achievements.map((item) => (
@@ -102,11 +111,23 @@ function AchievementCard({ item, visible }) {
       transform: visible ? 'translateY(0)' : 'translateY(20px)',
       transition: 'all 0.6s ease',
     }}>
-      <div className="achievement-icon">{item.icon}</div>
+      {item.badge ? (
+        <img
+          src={item.badge}
+          alt={`${item.title} badge`}
+          loading="lazy"
+          style={{
+            width: '48px', height: '48px', objectFit: 'contain',
+            marginBottom: '12px', borderRadius: '8px',
+          }}
+        />
+      ) : (
+        <div style={{ marginBottom: '12px', width: '48px', height: '48px' }} />
+      )}
       <h3 style={{ fontFamily: 'Space Mono' }}>
         {count}{item.suffix}
       </h3>
-      <p className="achievement-platform">Platform: {item.platform}</p>
+      <p className="achievement-platform">{item.platform}</p>
       <p className="achievement-line">{item.line}</p>
       <a href={item.link} target="_blank" rel="noreferrer" className="achievement-link">View Profile →</a>
     </article>

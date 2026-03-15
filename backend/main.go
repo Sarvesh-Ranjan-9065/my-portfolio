@@ -112,12 +112,11 @@ func getProjectsData() []Project {
 			Period:      "Apr 2025 – May 2025",
 			Icon:        "🛍️",
 			Badge:       "FEATURED",
-			Description: "An AI-powered virtual shopping platform combining React, the Gemini API, and Supabase — featuring a conversational chatbot, product search, and category filtering that boosted user engagement by 40%.",
+			Description: "An AI-powered virtual shopping platform built with React, Gemini API, and Supabase. Has a conversational chatbot, product search, and category filtering.",
 			Bullets: []string{
 				"Built with React frontend and Gemini API for AI-driven chatbot assistance",
 				"Integrated Supabase for product data storage and backend connectivity",
 				"Implemented product search and category filtering",
-				"Increased user engagement by 40% through conversational AI + e-commerce UX",
 				"Designed a clean and responsive UI to make product discovery more intuitive",
 			},
 			Tech:   []string{"React", "Gemini API", "Supabase", "JavaScript"},

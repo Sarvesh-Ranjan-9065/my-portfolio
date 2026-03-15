@@ -17,9 +17,7 @@ export default function Footer() {
         flexWrap: 'wrap', gap: '16px', marginBottom: '20px',
       }}>
         <div style={{ fontFamily: 'Space Mono', fontSize: '14px' }}>
-          <span style={{ color: 'var(--cyan)' }}>&lt;</span>
-          <span style={{ color: '#e2e8f0' }}>Sarvesh</span>
-          <span style={{ color: 'var(--cyan)' }}> /&gt;</span>
+          <span style={{ color: '#e2e8f0' }}>Sarvesh Ranjan</span>
         </div>
 
         <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
@@ -58,7 +56,7 @@ export default function Footer() {
           fontFamily: 'Space Mono', fontSize: '11px',
           color: 'rgba(226,232,240,0.3)',
         }}>
-          © {new Date().getFullYear()} Sarvesh. All systems operational.
+          © {new Date().getFullYear()} Sarvesh Ranjan.
         </p>
       </div>
     </footer>

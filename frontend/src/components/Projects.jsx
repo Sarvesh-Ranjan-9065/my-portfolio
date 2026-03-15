@@ -42,8 +42,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="section" ref={ref}>
-      <p className="section-label slide-in-heading">03. Projects</p>
-      <h2 className="section-title slide-in-heading">Stuff I actually finished.</h2>
+      <h2 className="section-title slide-in-heading">Projects.</h2>
 
       {/* Filter tabs */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '32px', flexWrap: 'wrap' }}>

@@ -72,7 +72,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="noise relative min-h-screen" style={{ background: 'var(--bg)' }}>
+    <div className="relative min-h-screen" style={{ background: 'var(--bg)' }}>
       {/* Cursor glow */}
       <div
         ref={cursorGlowRef}
@@ -84,7 +84,7 @@ export default function App() {
           width: '400px',
           height: '400px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,245,255,0.07) 0%, rgba(0,245,255,0.02) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0,245,255,0.05) 0%, rgba(0,245,255,0.015) 40%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 9999,
           transform: 'translate3d(-200px, -200px, 0)',
@@ -92,23 +92,12 @@ export default function App() {
         }}
       />
 
-      {/* Ambient orbs */}
+      {/* Single subtle ambient orb */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="ambient-orb" style={{
           position: 'absolute', top: '-20%', left: '-10%',
           width: '600px', height: '600px',
-          background: 'radial-gradient(circle, rgba(0,245,255,0.06) 0%, transparent 70%)',
-        }} />
-        <div className="ambient-orb" style={{
-          position: 'absolute', bottom: '10%', right: '-15%',
-          width: '500px', height: '500px',
-          background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)',
-        }} />
-        <div className="ambient-orb" style={{
-          position: 'absolute', top: '50%', left: '50%',
-          width: '400px', height: '400px',
-          transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, rgba(0,245,255,0.03) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0,245,255,0.04) 0%, transparent 70%)',
         }} />
       </div>
 
