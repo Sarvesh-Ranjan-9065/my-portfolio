@@ -124,7 +124,11 @@ export default function Navbar() {
                 display: 'flex', alignItems: 'center', gap: '4px',
               }}
             >
-              More <span style={{ fontSize: '10px', transition: 'transform 0.2s', display: 'inline-block', transform: moreOpen ? 'rotate(180deg)' : 'rotate(0)' }}>▼</span>
+              <span style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '16px' }}>
+                <span style={{ display: 'block', height: '1.5px', background: 'currentColor', borderRadius: '1px' }} />
+                <span style={{ display: 'block', height: '1.5px', background: 'currentColor', borderRadius: '1px' }} />
+                <span style={{ display: 'block', height: '1.5px', background: 'currentColor', borderRadius: '1px' }} />
+              </span>
             </button>
             {moreOpen && (
               <div style={{

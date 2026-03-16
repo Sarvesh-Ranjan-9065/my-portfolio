@@ -24,8 +24,13 @@ export default function Fun() {
   }
 
   return (
-    <section id="fun" className="section-shell" style={{ padding: '90px 48px 60px', maxWidth: '980px', margin: '0 auto' }}>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '24px' }}>Dev jokes.</h2>
+    <section id="fun" className="section-shell" style={{ padding: '80px 48px', maxWidth: '980px', margin: '0 auto' }}>
+      <h2 className="slide-in-heading" style={{
+        fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+        color: '#e2e8f0', lineHeight: 1.1, marginBottom: '24px',
+      }}>
+        Dev jokes
+      </h2>
 
       <article className="glass-card fun-card">
         <p className="fun-label">// because not everything needs a ticket</p>

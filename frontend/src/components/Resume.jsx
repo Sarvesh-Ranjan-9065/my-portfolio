@@ -8,8 +8,13 @@ export default function Resume() {
   const [view, setView] = useState('brief')
 
   return (
-    <section id="resume" className="section-shell" style={{ padding: '90px 48px 40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '20px' }}>Resume.</h2>
+    <section id="resume" className="section-shell" style={{ padding: '80px 48px', maxWidth: '1200px', margin: '0 auto' }}>
+      <h2 className="slide-in-heading" style={{
+        fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+        color: '#e2e8f0', lineHeight: 1.1, marginBottom: '20px',
+      }}>
+        Resume
+      </h2>
 
       {/* View toggle */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '28px' }}>

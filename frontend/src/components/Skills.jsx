@@ -30,7 +30,7 @@ export default function Skills() {
 
   return (
     <section id="skills" style={{
-      padding: '120px 48px',
+      padding: '80px 48px',
       background: 'rgba(0,245,255,0.01)',
       borderTop: '1px solid rgba(0,245,255,0.06)',
       borderBottom: '1px solid rgba(0,245,255,0.06)',
@@ -46,7 +46,7 @@ export default function Skills() {
             fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
             color: '#e2e8f0', lineHeight: 1.1,
           }}>
-            Skills.
+            Skills
           </h2>
         </div>
 

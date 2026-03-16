@@ -110,8 +110,13 @@ export default function Certifications() {
   }, [])
 
   return (
-    <section id="certifications" className="section-shell" style={{ padding: '80px 48px 40px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '28px' }}>Certifications.</h2>
+    <section id="certifications" className="section-shell" style={{ padding: '80px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
+      <h2 className="slide-in-heading" style={{
+        fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+        color: '#e2e8f0', lineHeight: 1.1, marginBottom: '28px',
+      }}>
+        Certifications
+      </h2>
 
       <div className="cert-grid" style={{
         opacity: visible ? 1 : 0,

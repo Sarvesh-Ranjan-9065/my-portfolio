@@ -28,14 +28,12 @@ export default function About() {
   const tags = ["4-Star Python on HackerRank", "Open Source Learner"]
 
   const stats = [
-    { label: "Projects", value: "2" },
     { label: "LeetCode", value: "100+" },
-    { label: "Python", value: "4-Star" },
     { label: "CGPA", value: "6.96" },
   ]
 
   return (
-    <section id="about" className="section-shell" style={{ padding: '120px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
+    <section id="about" className="section-shell" style={{ padding: '80px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
       <div style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(40px)',
@@ -45,7 +43,7 @@ export default function About() {
           fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
           color: '#e2e8f0', marginBottom: '64px', lineHeight: 1.1,
         }}>
-          A bit about me.
+          About
         </h2>
 
         <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>

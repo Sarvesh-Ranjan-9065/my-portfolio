@@ -125,8 +125,13 @@ function TrainingCertificatePreview() {
 
 export default function Training() {
   return (
-    <section id="training" className="section-shell" style={{ padding: '80px 48px 40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h2 className="section-title slide-in-heading" style={{ marginBottom: '28px' }}>Training.</h2>
+    <section id="training" className="section-shell" style={{ padding: '80px 48px', maxWidth: '1200px', margin: '0 auto' }}>
+      <h2 className="slide-in-heading" style={{
+        fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+        color: '#e2e8f0', lineHeight: 1.1, marginBottom: '28px',
+      }}>
+        Training
+      </h2>
 
       <div className="timeline-wrap">
         <article className="timeline-item glass-card">

@@ -41,8 +41,13 @@ export default function Projects() {
     : projects.filter(p => getCategory(p.tech) === filter)
 
   return (
-    <section id="projects" className="section" ref={ref}>
-      <h2 className="section-title slide-in-heading">Projects.</h2>
+    <section id="projects" className="section" style={{ padding: '80px 48px' }} ref={ref}>
+      <h2 className="slide-in-heading" style={{
+        fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+        color: '#e2e8f0', lineHeight: 1.1, marginBottom: '28px',
+      }}>
+        Projects
+      </h2>
 
       {/* Filter tabs */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '32px', flexWrap: 'wrap' }}>
