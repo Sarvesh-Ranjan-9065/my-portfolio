@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import ThemeSwitcher from './components/ThemeSwitcher'
+import Threads from './extra_UI/background/threads'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -85,7 +86,7 @@ export default function App() {
           width: '400px',
           height: '400px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,245,255,0.05) 0%, rgba(0,245,255,0.015) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(var(--cyan-r),var(--cyan-g),var(--cyan-b),0.05) 0%, rgba(var(--cyan-r),var(--cyan-g),var(--cyan-b),0.015) 40%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 9999,
           transform: 'translate3d(-200px, -200px, 0)',
@@ -98,7 +99,7 @@ export default function App() {
         <div className="ambient-orb" style={{
           position: 'absolute', top: '-20%', left: '-10%',
           width: '600px', height: '600px',
-          background: 'radial-gradient(circle, rgba(0,245,255,0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(var(--cyan-r),var(--cyan-g),var(--cyan-b),0.04) 0%, transparent 70%)',
         }} />
       </div>
 

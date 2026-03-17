@@ -19,8 +19,14 @@ function hexToRgba(hex, alpha) {
 }
 
 function applyThemeToDom(theme) {
+  const r = parseInt(theme.color.slice(1, 3), 16)
+  const g = parseInt(theme.color.slice(3, 5), 16)
+  const b = parseInt(theme.color.slice(5, 7), 16)
   document.documentElement.style.setProperty('--cyan', theme.color)
   document.documentElement.style.setProperty('--cyan-dim', theme.dim)
+  document.documentElement.style.setProperty('--cyan-r', r)
+  document.documentElement.style.setProperty('--cyan-g', g)
+  document.documentElement.style.setProperty('--cyan-b', b)
 }
 
 export default function ThemeSwitcher() {
