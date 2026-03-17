@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer style={{
       padding: '48px',
-      borderTop: '1px solid rgba(0,245,255,0.08)',
+      borderTop: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.08)',
       maxWidth: '1200px', margin: '0 auto',
     }}>
       <div style={{

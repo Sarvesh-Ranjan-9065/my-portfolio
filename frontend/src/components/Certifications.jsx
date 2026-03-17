@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 const certs = [
   {
@@ -38,56 +39,58 @@ function CertCard({ cert }) {
   const isFeatured = cert.featured
 
   return (
-    <article
-      className="glass-card"
-      style={{
-        borderRadius: '14px',
-        padding: '24px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        minHeight: '200px',
-        border: isFeatured ? '1px solid rgba(0,245,255,0.3)' : undefined,
-        transition: 'all 0.3s ease',
-        position: 'relative',
-      }}
-    >
-      {isFeatured && (
-        <span style={{
-          position: 'absolute', top: '12px', right: '12px',
-          fontFamily: 'Space Mono', fontSize: '9px', letterSpacing: '1px',
-          color: '#020818', background: 'var(--cyan)',
-          padding: '3px 8px', borderRadius: '4px', fontWeight: 700,
-        }}>FEATURED</span>
-      )}
-
-      <div>
-        <h3 style={{
-          color: '#ecfeff', margin: '0 0 10px', fontSize: isFeatured ? '1.2rem' : '1.1rem',
-        }}>{cert.name}</h3>
-        <p style={{ color: 'rgba(226,232,240,0.67)', fontSize: '14px', marginBottom: '4px' }}>
-          {cert.issuer}
-        </p>
-        <p style={{ color: 'rgba(226,232,240,0.45)', fontSize: '13px' }}>
-          {cert.date}
-        </p>
-      </div>
-
-      <a
-        href={cert.file}
-        target="_blank"
-        rel="noreferrer"
-        className="interactive-focus"
+    <SpotlightCard className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.24)">
+      <article
+        className="glass-card"
         style={{
-          marginTop: '16px',
-          fontFamily: 'Space Mono', fontSize: '11px', letterSpacing: '1px',
-          color: 'var(--cyan)', textDecoration: 'none',
-          display: 'inline-flex', alignItems: 'center', gap: '4px',
+          borderRadius: '14px',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          minHeight: '200px',
+          border: isFeatured ? '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.3)' : undefined,
+          transition: 'all 0.3s ease',
+          position: 'relative',
         }}
       >
-        View Certificate →
-      </a>
-    </article>
+        {isFeatured && (
+          <span style={{
+            position: 'absolute', top: '12px', right: '12px',
+            fontFamily: 'Space Mono', fontSize: '9px', letterSpacing: '1px',
+            color: '#020818', background: 'var(--cyan)',
+            padding: '3px 8px', borderRadius: '4px', fontWeight: 700,
+          }}>FEATURED</span>
+        )}
+
+        <div>
+          <h3 style={{
+            color: '#ecfeff', margin: '0 0 10px', fontSize: isFeatured ? '1.2rem' : '1.1rem',
+          }}>{cert.name}</h3>
+          <p style={{ color: 'rgba(226,232,240,0.67)', fontSize: '14px', marginBottom: '4px' }}>
+            {cert.issuer}
+          </p>
+          <p style={{ color: 'rgba(226,232,240,0.45)', fontSize: '13px' }}>
+            {cert.date}
+          </p>
+        </div>
+
+        <a
+          href={cert.file}
+          target="_blank"
+          rel="noreferrer"
+          className="interactive-focus"
+          style={{
+            marginTop: '16px',
+            fontFamily: 'Space Mono', fontSize: '11px', letterSpacing: '1px',
+            color: 'var(--cyan)', textDecoration: 'none',
+            display: 'inline-flex', alignItems: 'center', gap: '4px',
+          }}
+        >
+          View Certificate →
+        </a>
+      </article>
+    </SpotlightCard>
   )
 }
 
@@ -118,14 +121,16 @@ export default function Certifications() {
         Certifications
       </h2>
 
-      <div className="cert-grid" style={{
+      <div style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(20px)',
         transition: 'all 0.6s ease',
       }}>
-        {certs.map((cert) => (
-          <CertCard key={cert.name} cert={cert} />
-        ))}
+        <div className="cert-grid">
+          {certs.map((cert) => (
+            <CertCard key={cert.name} cert={cert} />
+          ))}
+        </div>
       </div>
     </section>
   )

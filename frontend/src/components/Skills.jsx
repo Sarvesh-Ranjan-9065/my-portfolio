@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import ScrollReveal from '../extra_UI/animations/scroll_reveal'
+import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 const techSkillGroups = [
   { category: 'Languages', items: ['Go', 'C++', 'Python', 'Java', 'C'] },
@@ -31,9 +33,9 @@ export default function Skills() {
   return (
     <section id="skills" style={{
       padding: '80px 48px',
-      background: 'rgba(0,245,255,0.01)',
-      borderTop: '1px solid rgba(0,245,255,0.06)',
-      borderBottom: '1px solid rgba(0,245,255,0.06)',
+      background: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.01)',
+      borderTop: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.06)',
+      borderBottom: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.06)',
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
         <div style={{
@@ -48,6 +50,16 @@ export default function Skills() {
           }}>
             Skills
           </h2>
+
+          <ScrollReveal
+            baseOpacity={0.2}
+            baseRotation={1.4}
+            blurStrength={2}
+            containerClassName="!my-0 !mt-2"
+            textClassName="!text-[1rem] !font-normal !leading-8"
+          >
+            Core stack, cloud tools, and learning velocity represented as practical skills I use in real projects.
+          </ScrollReveal>
         </div>
 
         {/* Tabs */}
@@ -61,8 +73,8 @@ export default function Skills() {
                 fontFamily: 'Space Mono', fontSize: '12px', letterSpacing: '1px',
                 textTransform: 'uppercase', cursor: 'pointer',
                 padding: '10px 24px', borderRadius: '8px',
-                border: activeTab === tab.key ? '1px solid var(--cyan)' : '1px solid rgba(0,245,255,0.12)',
-                background: activeTab === tab.key ? 'rgba(0,245,255,0.1)' : 'transparent',
+                border: activeTab === tab.key ? '1px solid var(--cyan)' : '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.12)',
+                background: activeTab === tab.key ? 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.1)' : 'transparent',
                 color: activeTab === tab.key ? 'var(--cyan)' : 'rgba(226,232,240,0.5)',
                 transition: 'all 0.3s',
               }}
@@ -76,17 +88,17 @@ export default function Skills() {
         {activeTab === 'tech' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '24px' }}>
             {techSkillGroups.map((group, gi) => (
-              <div
-                key={group.category}
-                className="glass-card"
-                style={{
-                  padding: '32px', borderRadius: '16px',
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? 'translateY(0)' : 'translateY(30px)',
-                  transition: `all 0.6s ease ${gi * 0.1 + 0.2}s`,
-                  position: 'relative', overflow: 'hidden',
-                }}
-              >
+              <SpotlightCard key={group.category} className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.22)">
+                <div
+                  className="glass-card"
+                  style={{
+                    padding: '32px', borderRadius: '16px',
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? 'translateY(0)' : 'translateY(30px)',
+                    transition: `all 0.6s ease ${gi * 0.1 + 0.2}s`,
+                    position: 'relative', overflow: 'hidden',
+                  }}
+                >
                 <div style={{
                   position: 'absolute', top: 0, left: '20%', right: '20%', height: '1px',
                   background: 'linear-gradient(90deg, transparent, var(--cyan), transparent)',
@@ -99,7 +111,7 @@ export default function Skills() {
                   letterSpacing: '1px', textTransform: 'uppercase',
                 }}>{group.category}</h3>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   {group.items.map((skill, si) => (
                     <span
                       key={skill}
@@ -107,8 +119,8 @@ export default function Skills() {
                       style={{
                         fontFamily: 'Space Mono', fontSize: '12px',
                         color: '#9df8ff',
-                        background: 'rgba(0,245,255,0.08)',
-                        border: '1px solid rgba(0,245,255,0.2)',
+                        background: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.08)',
+                        border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)',
                         borderRadius: '4px', padding: '5px 12px',
                         opacity: visible ? 1 : 0,
                         transform: visible ? 'scale(1)' : 'scale(0.7)',
@@ -117,55 +129,58 @@ export default function Skills() {
                       }}
                       onMouseEnter={e => {
                         e.target.style.color = '#dafeff'
-                        e.target.style.borderColor = 'rgba(0,245,255,0.45)'
-                        e.target.style.background = 'rgba(0,245,255,0.12)'
-                        e.target.style.boxShadow = '0 0 6px rgba(0,245,255,0.1)'
+                        e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.45)'
+                        e.target.style.background = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.12)'
+                        e.target.style.boxShadow = '0 0 6px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.1)'
                       }}
                       onMouseLeave={e => {
                         e.target.style.color = '#9df8ff'
-                        e.target.style.borderColor = 'rgba(0,245,255,0.2)'
-                        e.target.style.background = 'rgba(0,245,255,0.08)'
+                        e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)'
+                        e.target.style.background = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.08)'
                         e.target.style.boxShadow = 'none'
                       }}
                     >
                       {skill}
                     </span>
                   ))}
+                  </div>
                 </div>
-              </div>
+              </SpotlightCard>
             ))}
           </div>
         )}
 
         {/* Soft skills */}
         {activeTab === 'soft' && (
-          <div className="glass-card" style={{ padding: '40px', borderRadius: '16px' }}>
-            <p style={{
-              fontFamily: 'Space Mono', fontSize: '11px', letterSpacing: '2px',
-              color: 'rgba(198,173,255,0.8)', textTransform: 'uppercase', marginBottom: '24px',
-            }}>
-              Non-Technical Strengths
-            </p>
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              {nonTechSkills.map((skill, i) => (
-                <span
-                  key={skill}
-                  style={{
-                    fontFamily: 'Space Mono', fontSize: '13px',
-                    color: '#ddc8ff',
-                    background: 'rgba(124,58,237,0.14)',
-                    border: '1px solid rgba(196,181,253,0.25)',
-                    borderRadius: '999px', padding: '8px 18px',
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? 'scale(1)' : 'scale(0.7)',
-                    transition: `all 0.3s ease ${i * 0.08 + 0.2}s`,
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
+          <SpotlightCard className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.24)">
+            <div className="glass-card" style={{ padding: '40px', borderRadius: '16px' }}>
+              <p style={{
+                fontFamily: 'Space Mono', fontSize: '11px', letterSpacing: '2px',
+                color: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.8)', textTransform: 'uppercase', marginBottom: '24px',
+              }}>
+                Non-Technical Strengths
+              </p>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                {nonTechSkills.map((skill, i) => (
+                  <span
+                    key={skill}
+                    style={{
+                      fontFamily: 'Space Mono', fontSize: '13px',
+                      color: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.92)',
+                      background: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.14)',
+                      border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.25)',
+                      borderRadius: '999px', padding: '8px 18px',
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? 'scale(1)' : 'scale(0.7)',
+                      transition: `all 0.3s ease ${i * 0.08 + 0.2}s`,
+                    }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          </SpotlightCard>
         )}
       </div>
     </section>

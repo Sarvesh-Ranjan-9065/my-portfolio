@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 function TrainingCertificatePreview() {
   const [previewUrl, setPreviewUrl] = useState('')
@@ -75,9 +76,9 @@ function TrainingCertificatePreview() {
         style={{
           borderRadius: '16px',
           overflow: 'hidden',
-          border: '1px solid rgba(0,245,255,0.18)',
+          border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.18)',
           background: 'rgba(3,17,31,0.94)',
-          boxShadow: '0 0 12px rgba(0,245,255,0.06)',
+          boxShadow: '0 0 12px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.06)',
           minHeight: '320px',
         }}
       >
@@ -134,24 +135,29 @@ export default function Training() {
       </h2>
 
       <div className="timeline-wrap">
-        <article className="timeline-item glass-card">
-          <div className="timeline-dot" />
-          <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(280px, 0.85fr)', gap: '28px', alignItems: 'start' }}>
-            <div>
-              <h3>CSE Pathshala · Jun 2025 - Jul 2025</h3>
-              <p>C++ Programming: OOPs and Data Structures</p>
-              <ul className="timeline-bullets">
-                <li>Learned OOP: classes, objects, inheritance, polymorphism, abstraction.</li>
-                <li>Practiced DSA: arrays, linked lists, stacks, queues, and tree fundamentals.</li>
-                <li>Built problem-solving ability through structured coding practice.</li>
-              </ul>
-            </div>
+        <SpotlightCard
+          className="!p-0 !bg-transparent !border-0"
+          spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.28)"
+        >
+          <article className="timeline-item glass-card">
+            <div className="timeline-dot" />
+            <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(280px, 0.85fr)', gap: '28px', alignItems: 'start' }}>
+              <div>
+                <h3>CSE Pathshala · Jun 2025 - Jul 2025</h3>
+                <p>C++ Programming: OOPs and Data Structures</p>
+                <ul className="timeline-bullets">
+                  <li>Learned OOP: classes, objects, inheritance, polymorphism, abstraction.</li>
+                  <li>Practiced DSA: arrays, linked lists, stacks, queues, and tree fundamentals.</li>
+                  <li>Built problem-solving ability through structured coding practice.</li>
+                </ul>
+              </div>
 
-            <div>
-              <TrainingCertificatePreview />
+              <div>
+                <TrainingCertificatePreview />
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </SpotlightCard>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import ShinyText from '../extra_UI/animations/shiny_text'
 
 const mainLinks = ['About', 'Projects', 'Skills', 'Contact']
 const moreLinks = ['Achievements', 'Education', 'Training', 'Certifications', 'Fun']
@@ -10,6 +11,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const moreRef = useRef(null)
+  const moreButtonRef = useRef(null)
+  const moreItemRefs = useRef([])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -58,6 +61,14 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', onClick)
   }, [moreOpen])
 
+  useEffect(() => {
+    if (moreOpen) {
+      requestAnimationFrame(() => {
+        moreItemRefs.current[0]?.focus()
+      })
+    }
+  }, [moreOpen])
+
   const scrollTo = (id) => {
     setActive(id)
     setMobileOpen(false)
@@ -67,6 +78,40 @@ export default function Navbar() {
 
   const resumeHref = '/Sarvesh_Resume.pdf'
 
+  const onMoreKeyDown = (event) => {
+    if (!moreOpen && (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault()
+      setMoreOpen(true)
+      return
+    }
+
+    if (!moreOpen) return
+
+    const max = moreLinks.length - 1
+    const currentIndex = moreItemRefs.current.findIndex((el) => el === document.activeElement)
+
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      setMoreOpen(false)
+      moreButtonRef.current?.focus()
+      return
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      const next = currentIndex < 0 ? 0 : Math.min(max, currentIndex + 1)
+      moreItemRefs.current[next]?.focus()
+      return
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      const prev = currentIndex < 0 ? max : Math.max(0, currentIndex - 1)
+      moreItemRefs.current[prev]?.focus()
+      return
+    }
+  }
+
   return (
     <>
       <nav
@@ -74,11 +119,17 @@ export default function Navbar() {
         style={{
           background: scrolled ? 'rgba(2,8,24,0.85)' : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(0,245,255,0.08)' : '1px solid transparent',
+          borderBottom: scrolled ? '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.08)' : '1px solid transparent',
         }}
       >
         <div style={{ fontFamily: 'Space Mono', fontSize: '18px', fontWeight: 700 }}>
-          <span style={{ color: '#e2e8f0' }}>Sarvesh</span>
+          <ShinyText
+            text="Sarvesh"
+            speed={2.2}
+            color="rgba(226,232,240,0.95)"
+            shineColor="var(--cyan)"
+            className="tracking-wide"
+          />
         </div>
 
         <button
@@ -106,15 +157,24 @@ export default function Navbar() {
                 transition: 'color 0.3s', padding: '4px 0',
               }}
             >
-              {link}
+              {active === link ? (
+                <ShinyText text={link} speed={2.4} color="var(--cyan)" shineColor="#ffffff" />
+              ) : (
+                link
+              )}
             </button>
           ))}
 
           {/* More dropdown */}
           <div ref={moreRef} style={{ position: 'relative' }}>
             <button
+              ref={moreButtonRef}
               type="button"
               onClick={() => setMoreOpen((p) => !p)}
+              onKeyDown={onMoreKeyDown}
+              aria-expanded={moreOpen}
+              aria-haspopup="menu"
+              aria-controls="more-menu"
               style={{
                 background: 'none', border: 'none', cursor: 'pointer',
                 fontFamily: 'Space Mono', fontSize: '13px',
@@ -131,21 +191,23 @@ export default function Navbar() {
               </span>
             </button>
             {moreOpen && (
-              <div style={{
+              <div id="more-menu" style={{
                 position: 'absolute', top: '100%', right: 0, marginTop: '12px',
-                background: 'rgba(2,8,24,0.95)', border: '1px solid rgba(0,245,255,0.15)',
+                background: 'rgba(2,8,24,0.95)', border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.15)',
                 borderRadius: '10px', padding: '12px 8px', minWidth: '180px',
                 backdropFilter: 'blur(16px)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
                 zIndex: 200,
-              }}>
-                {moreLinks.map((link) => (
+              }} role="menu" aria-label="More sections" onKeyDown={onMoreKeyDown}>
+                {moreLinks.map((link, idx) => (
                   <button
                     key={link}
+                    ref={(el) => { moreItemRefs.current[idx] = el }}
                     type="button"
                     onClick={() => scrollTo(link)}
+                    role="menuitem"
                     style={{
                       display: 'block', width: '100%', textAlign: 'left',
-                      background: active === link ? 'rgba(0,245,255,0.08)' : 'none',
+                      background: active === link ? 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.08)' : 'none',
                       border: 'none', cursor: 'pointer',
                       fontFamily: 'Space Mono', fontSize: '12px',
                       color: active === link ? 'var(--cyan)' : 'rgba(226,232,240,0.6)',
@@ -153,7 +215,7 @@ export default function Navbar() {
                       padding: '8px 12px', borderRadius: '6px',
                       transition: 'all 0.2s',
                     }}
-                    onMouseEnter={e => { e.target.style.background = 'rgba(0,245,255,0.06)'; e.target.style.color = 'var(--cyan)' }}
+                    onMouseEnter={e => { e.target.style.background = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.06)'; e.target.style.color = 'var(--cyan)' }}
                     onMouseLeave={e => { if (active !== link) { e.target.style.background = 'none'; e.target.style.color = 'rgba(226,232,240,0.6)' }}}
                   >
                     {link}
@@ -169,12 +231,12 @@ export default function Navbar() {
             className="interactive-focus"
             style={{
               fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)',
-              border: '1px solid rgba(0,245,255,0.4)', padding: '8px 18px',
+              border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.4)', padding: '8px 18px',
               borderRadius: '4px', textDecoration: 'none',
               letterSpacing: '1px', textTransform: 'uppercase',
               transition: 'all 0.3s',
             }}
-            onMouseEnter={e => { e.target.style.background = 'rgba(0,245,255,0.1)'; e.target.style.boxShadow = '0 0 20px rgba(0,245,255,0.3)' }}
+            onMouseEnter={e => { e.target.style.background = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.1)'; e.target.style.boxShadow = '0 0 20px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.3)' }}
             onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.boxShadow = 'none' }}
           >
             Resume
@@ -214,7 +276,7 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
             style={{
               marginTop: '8px', fontFamily: 'Space Mono', fontSize: '13px',
-              color: 'var(--cyan)', border: '1px solid rgba(0,245,255,0.4)',
+              color: 'var(--cyan)', border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.4)',
               borderRadius: '6px', textDecoration: 'none',
               padding: '10px 16px', width: 'fit-content',
               textTransform: 'uppercase', letterSpacing: '1px',

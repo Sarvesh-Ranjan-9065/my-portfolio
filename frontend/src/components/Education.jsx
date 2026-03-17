@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import ScrollReveal from '../extra_UI/animations/scroll_reveal'
+import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 const education = [
   {
@@ -41,24 +43,35 @@ export default function Education() {
         Education
       </h2>
 
+      <ScrollReveal
+        baseOpacity={0.2}
+        baseRotation={1.2}
+        blurStrength={2}
+        containerClassName="!my-0 !mb-8"
+        textClassName="!text-[1rem] !font-normal !leading-8"
+      >
+        A practical, project-driven learning path from school fundamentals to cloud-native engineering focus.
+      </ScrollReveal>
+
       <div className="timeline-wrap">
         {education.map((item, i) => (
-          <article
-            key={item.title}
-            className="timeline-item glass-card"
-            style={{
-              borderLeft: '3px solid var(--cyan)',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(20px)',
-              transition: `all 0.5s ease ${i * 0.12}s`,
-            }}
-          >
-            <div className="timeline-dot" />
-            <h3>{item.title}</h3>
-            <p>{item.school}</p>
-            <p className="timeline-date">{item.date}</p>
-            {item.badge && <span className="current-badge">{item.badge}</span>}
-          </article>
+          <SpotlightCard key={item.title} className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.22)">
+            <article
+              className="timeline-item glass-card"
+              style={{
+                borderLeft: '3px solid var(--cyan)',
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(20px)',
+                transition: `all 0.5s ease ${i * 0.12}s`,
+              }}
+            >
+              <div className="timeline-dot" />
+              <h3>{item.title}</h3>
+              <p>{item.school}</p>
+              <p className="timeline-date">{item.date}</p>
+              {item.badge && <span className="current-badge">{item.badge}</span>}
+            </article>
+          </SpotlightCard>
         ))}
       </div>
     </section>

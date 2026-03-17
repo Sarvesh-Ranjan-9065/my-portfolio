@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import Magnet from '../extra_UI/animations/magnet'
 
 export default function Contact() {
   const [visible, setVisible] = useState(false)
@@ -41,7 +42,7 @@ export default function Contact() {
   const inputStyle = {
     width: '100%', padding: '14px 18px',
     background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(0,245,255,0.15)',
+    border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.15)',
     borderRadius: '8px', color: '#e2e8f0',
     fontFamily: 'Space Mono', fontSize: '13px',
     outline: 'none', transition: 'all 0.3s',
@@ -78,12 +79,14 @@ export default function Contact() {
 
         <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
           {/* Left */}
-          <div style={{
+          <div className="glass-card" style={{
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.7s ease 0.2s',
+            borderRadius: '16px',
+            padding: '28px',
           }}>
-            <p style={{ fontSize: '17px', lineHeight: 1.8, color: 'rgba(226,232,240,0.55)', marginBottom: '48px' }}>
+            <p style={{ fontSize: '17px', lineHeight: 1.8, color: 'rgba(226,232,240,0.55)', marginBottom: '32px' }}>
               Have a project idea, want to collaborate, or just want to say hi? Feel free to reach out.
             </p>
 
@@ -96,14 +99,16 @@ export default function Contact() {
                 <span style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'var(--cyan)', letterSpacing: '2px', minWidth: '80px' }}>
                   {item.label.toUpperCase()}
                 </span>
-                <a href={item.href} target="_blank" rel="noreferrer"
-                  className="interactive-focus"
-                  style={{ fontFamily: 'Space Mono', fontSize: '13px', color: 'rgba(226,232,240,0.6)', textDecoration: 'none' }}
-                  onMouseEnter={e => e.target.style.color = 'var(--cyan)'}
-                  onMouseLeave={e => e.target.style.color = 'rgba(226,232,240,0.6)'}
-                >
-                  {item.value} ↗
-                </a>
+                <Magnet padding={64} magnetStrength={2.1}>
+                  <a href={item.href} target="_blank" rel="noreferrer"
+                    className="interactive-focus"
+                    style={{ fontFamily: 'Space Mono', fontSize: '13px', color: 'rgba(226,232,240,0.6)', textDecoration: 'none' }}
+                    onMouseEnter={e => e.target.style.color = 'var(--cyan)'}
+                    onMouseLeave={e => e.target.style.color = 'rgba(226,232,240,0.6)'}
+                  >
+                    {item.value} ↗
+                  </a>
+                </Magnet>
               </div>
             ))}
           </div>
@@ -120,7 +125,7 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <label htmlFor="contact-name" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
+                <label htmlFor="contact-name" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
                   NAME
                 </label>
                 <input
@@ -130,12 +135,12 @@ export default function Contact() {
                   style={inputStyle}
                   required
                   className="interactive-focus"
-                  onFocus={e => e.target.style.borderColor = 'rgba(0,245,255,0.5)'}
-                  onBlur={e => e.target.style.borderColor = 'rgba(0,245,255,0.15)'}
+                  onFocus={e => e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.5)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.15)'}
                 />
               </div>
               <div>
-                <label htmlFor="contact-email" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
+                <label htmlFor="contact-email" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
                   EMAIL
                 </label>
                 <input
@@ -145,12 +150,12 @@ export default function Contact() {
                   style={inputStyle}
                   required
                   className="interactive-focus"
-                  onFocus={e => e.target.style.borderColor = 'rgba(0,245,255,0.5)'}
-                  onBlur={e => e.target.style.borderColor = 'rgba(0,245,255,0.15)'}
+                  onFocus={e => e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.5)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.15)'}
                 />
               </div>
               <div>
-                <label htmlFor="contact-message" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(0,245,255,0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
+                <label htmlFor="contact-message" style={{ fontFamily: 'Space Mono', fontSize: '11px', color: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.7)', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>
                   MESSAGE
                 </label>
                 <textarea
@@ -161,31 +166,33 @@ export default function Contact() {
                   style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.7 }}
                   required
                   className="interactive-focus"
-                  onFocus={e => e.target.style.borderColor = 'rgba(0,245,255,0.5)'}
-                  onBlur={e => e.target.style.borderColor = 'rgba(0,245,255,0.15)'}
+                  onFocus={e => e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.5)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.15)'}
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={status === 'sending'}
-                className="interactive-focus"
-                style={{
-                  padding: '14px 32px',
-                  background: status === 'success' ? '#00ff88' : 'var(--cyan)',
-                  color: '#020818', border: 'none', borderRadius: '8px',
-                  fontFamily: 'Space Mono', fontSize: '13px', fontWeight: 700,
-                  letterSpacing: '2px', textTransform: 'uppercase',
-                  cursor: status === 'sending' ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.3s',
-                  boxShadow: '0 0 30px rgba(0,245,255,0.25)',
-                  opacity: status === 'sending' ? 0.7 : 1,
-                }}
-                onMouseEnter={e => { if (status !== 'sending') e.target.style.boxShadow = '0 0 50px rgba(0,245,255,0.5)' }}
-                onMouseLeave={e => e.target.style.boxShadow = '0 0 30px rgba(0,245,255,0.25)'}
-              >
-                {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent ✓' : 'Send Message'}
-              </button>
+              <Magnet padding={90} magnetStrength={2.4}>
+                <button
+                  type="submit"
+                  disabled={status === 'sending'}
+                  className="interactive-focus"
+                  style={{
+                    padding: '14px 32px',
+                    background: status === 'success' ? '#00ff88' : 'var(--cyan)',
+                    color: '#020818', border: 'none', borderRadius: '8px',
+                    fontFamily: 'Space Mono', fontSize: '13px', fontWeight: 700,
+                    letterSpacing: '2px', textTransform: 'uppercase',
+                    cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s',
+                    boxShadow: '0 0 30px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.25)',
+                    opacity: status === 'sending' ? 0.7 : 1,
+                  }}
+                  onMouseEnter={e => { if (status !== 'sending') e.target.style.boxShadow = '0 0 50px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.5)' }}
+                  onMouseLeave={e => e.target.style.boxShadow = '0 0 30px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.25)'}
+                >
+                  {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent ✓' : 'Send Message'}
+                </button>
+              </Magnet>
 
               <p aria-live="polite" style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'rgba(226,232,240,0.55)', textAlign: 'center', minHeight: '18px' }}>
                 {status === 'sending' ? 'Sending your message...' : ''}

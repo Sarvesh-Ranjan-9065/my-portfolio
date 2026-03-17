@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 const filterTabs = ['All', 'Go', 'Web']
 
@@ -60,8 +61,10 @@ export default function Projects() {
               fontFamily: 'Space Mono', fontSize: '12px', letterSpacing: '1px',
               textTransform: 'uppercase', cursor: 'pointer',
               padding: '8px 20px', borderRadius: '6px',
-              border: filter === tab ? '1px solid var(--cyan)' : '1px solid rgba(0,245,255,0.15)',
-              background: filter === tab ? 'rgba(0,245,255,0.12)' : 'rgba(0,245,255,0.03)',
+              border: filter === tab ? '1px solid var(--cyan)' : '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.15)',
+              background: filter === tab
+                ? 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.12)'
+                : 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.03)',
               color: filter === tab ? 'var(--cyan)' : 'rgba(226,232,240,0.5)',
               transition: 'all 0.3s',
             }}
@@ -72,38 +75,43 @@ export default function Projects() {
       </div>
 
       <div className="projects-grid">
-        {filtered.map((p, i) => (
-          <article
+        {filtered.map((p) => (
+          <SpotlightCard
             key={p.title}
-            className="project-card glass-card"
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.45s ease, transform 0.45s ease',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
+            className="!p-0 !bg-transparent !border-0"
+            spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.24)"
           >
-            {p.badge && (
-              <span style={{
-                position: 'absolute', top: '14px', right: '14px',
-                fontFamily: 'Space Mono', fontSize: '10px', letterSpacing: '1px',
-                color: '#020818', background: 'var(--cyan)',
-                padding: '3px 8px', borderRadius: '4px', fontWeight: 700,
-              }}>{p.badge}</span>
-            )}
-            <h3>{p.icon ? `${p.icon} ` : ''}{p.title}</h3>
-            <p>{p.description}</p>
+            <article
+              className="project-card glass-card"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(30px)',
+                transition: 'opacity 0.45s ease, transform 0.45s ease',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              {p.badge && (
+                <span style={{
+                  position: 'absolute', top: '14px', right: '14px',
+                  fontFamily: 'Space Mono', fontSize: '10px', letterSpacing: '1px',
+                  color: '#020818', background: 'var(--cyan)',
+                  padding: '3px 8px', borderRadius: '4px', fontWeight: 700,
+                }}>{p.badge}</span>
+              )}
+              <h3>{p.icon ? `${p.icon} ` : ''}{p.title}</h3>
+              <p>{p.description}</p>
 
-            <div className="tech-row">
-              {p.tech?.map((t) => <span key={t} className="chip">{t}</span>)}
-            </div>
+              <div className="tech-row">
+                {p.tech?.map((t) => <span key={t} className="chip">{t}</span>)}
+              </div>
 
-            <div className="link-row">
-              {p.github && <a href={p.github} target="_blank" rel="noreferrer">GitHub ↗</a>}
-              {p.demo && <a href={p.demo} target="_blank" rel="noreferrer">Live Demo ↗</a>}
-            </div>
-          </article>
+              <div className="link-row">
+                {p.github && <a href={p.github} target="_blank" rel="noreferrer">GitHub ↗</a>}
+                {p.demo && <a href={p.demo} target="_blank" rel="noreferrer">Live Demo ↗</a>}
+              </div>
+            </article>
+          </SpotlightCard>
         ))}
       </div>
     </section>

@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import ScrollReveal from '../extra_UI/animations/scroll_reveal'
+import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 function useCountUp(target, duration, start) {
   const [count, setCount] = useState(0)
@@ -99,6 +101,16 @@ export default function Achievements() {
         Achievements
       </h2>
 
+      <ScrollReveal
+        baseOpacity={0.2}
+        baseRotation={1.2}
+        blurStrength={2}
+        containerClassName="!my-0 !mb-8"
+        textClassName="!text-[1rem] !font-normal !leading-8"
+      >
+        Consistency and discipline matter more than intensity, so this section highlights streaks and long-term progress.
+      </ScrollReveal>
+
       <div className="achievements-grid">
         {achievements.map((item) => (
           <AchievementCard key={item.title} item={item} visible={visible} />
@@ -110,17 +122,18 @@ export default function Achievements() {
 
 function AchievementCard({ item, visible }) {
   const count = useCountUp(item.countTarget, 900, visible)
-  const cfg = platformConfig[item.platform] ?? { color: 'var(--cyan)', bg: 'rgba(0,245,255,0.08)', abbr: '??' }
+  const cfg = platformConfig[item.platform] ?? { color: 'var(--cyan)', bg: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.08)', abbr: '??' }
 
   return (
-    <article className="glass-card achievement-card" style={{
-      opacity: visible ? 1 : 0,
-      transform: visible ? 'translateY(0)' : 'translateY(20px)',
-      transition: 'all 0.6s ease',
-      borderTop: `2px solid ${cfg.color}`,
-      position: 'relative',
-      overflow: 'hidden',
-    }}>
+    <SpotlightCard className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.22)">
+      <article className="glass-card achievement-card" style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'all 0.6s ease',
+        borderTop: `2px solid ${cfg.color}`,
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
       {/* top accent fade */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '40px',
@@ -154,7 +167,8 @@ function AchievementCard({ item, visible }) {
       </h3>
       <p className="achievement-platform" style={{ color: cfg.color }}>{item.platform}</p>
       <p className="achievement-line">{item.line}</p>
-      <a href={item.link} target="_blank" rel="noreferrer" className="achievement-link">View Profile →</a>
-    </article>
+        <a href={item.link} target="_blank" rel="noreferrer" className="achievement-link">View Profile →</a>
+      </article>
+    </SpotlightCard>
   )
 }

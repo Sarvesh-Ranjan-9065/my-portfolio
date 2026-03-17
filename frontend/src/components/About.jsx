@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 export default function About() {
   const [visible, setVisible] = useState(false)
-  const [imgHover, setImgHover] = useState(false)
   const ref = useRef(null)
 
   useEffect(() => {
@@ -59,8 +59,8 @@ export default function About() {
               {tags.map(tag => (
                 <span key={tag} style={{
                   fontFamily: 'Space Mono', fontSize: '11px',
-                  color: 'var(--cyan)', background: 'rgba(0,245,255,0.06)',
-                  border: '1px solid rgba(0,245,255,0.15)',
+                  color: 'var(--cyan)', background: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.06)',
+                  border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.15)',
                   borderRadius: '4px', padding: '6px 12px', letterSpacing: '1px',
                 }}>{tag}</span>
               ))}
@@ -69,46 +69,57 @@ export default function About() {
 
           {/* Right: Photo + Stats */}
           <div>
-            <div
-              className="glass-card"
-              onMouseEnter={() => setImgHover(true)}
-              onMouseLeave={() => setImgHover(false)}
-              style={{
-                borderRadius: '18px', padding: '16px', marginBottom: '20px',
-                border: imgHover ? '1px solid rgba(0,245,255,0.3)' : '1px solid rgba(0,245,255,0.2)',
-                boxShadow: imgHover
-                  ? '0 0 10px rgba(0,245,255,0.08)'
-                  : 'none',
-                transition: 'all 0.4s ease',
-              }}
-            >
-              <img
-                src="/sarvesh.jpg"
-                alt="Sarvesh portrait"
-                loading="lazy"
+            <SpotlightCard className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.24)">
+              <div
+                className="glass-card"
                 style={{
-                  width: '100%', height: '320px', objectFit: 'cover',
-                  objectPosition: 'center 18%',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(0,245,255,0.15)',
+                  borderRadius: '18px',
+                  padding: '28px 20px 24px',
+                  marginBottom: '20px',
+                  border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)',
                   transition: 'all 0.4s ease',
-                  filter: imgHover ? 'brightness(1.05)' : 'brightness(1)',
-                  transform: imgHover ? 'scale(0.84)' : 'scale(0.8)',
-                  transformOrigin: 'center top',
-                  background: '#03111f',
+                  textAlign: 'center',
                 }}
-              />
-            </div>
+              >
+                <div style={{
+                  width: '280px',
+                  height: '280px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  margin: '0 auto 18px',
+                  border: '2px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.35)',
+                  boxShadow: '0 0 18px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.14)',
+                }}>
+                  <img
+                    src="/sarvesh.jpg"
+                    alt="Sarvesh Ranjan"
+                    loading="lazy"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center 20%',
+                    }}
+                  />
+                </div>
+                <h3 style={{ color: '#e2e8f0', marginBottom: '6px' }}>Sarvesh Ranjan</h3>
+                <p style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)', letterSpacing: '1px' }}>
+                  Go Developer
+                </p>
+              </div>
+            </SpotlightCard>
 
             <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               {stats.map((item) => (
-                <div key={item.label} className="stat-card glass-card" style={{
-                  padding: '16px', borderRadius: '12px', textAlign: 'center',
-                  transition: 'all 0.3s ease',
-                }}>
-                  <h3>{item.value}</h3>
-                  <p style={{ fontSize: '12px', fontFamily: 'Space Mono', color: 'rgba(226,232,240,0.5)', letterSpacing: '1px', marginTop: '4px' }}>{item.label}</p>
-                </div>
+                <SpotlightCard key={item.label} className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)">
+                  <div className="stat-card glass-card" style={{
+                    padding: '16px', borderRadius: '12px', textAlign: 'center',
+                    transition: 'all 0.3s ease',
+                  }}>
+                    <h3>{item.value}</h3>
+                    <p style={{ fontSize: '12px', fontFamily: 'Space Mono', color: 'rgba(226,232,240,0.5)', letterSpacing: '1px', marginTop: '4px' }}>{item.label}</p>
+                  </div>
+                </SpotlightCard>
               ))}
             </div>
           </div>

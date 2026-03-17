@@ -79,7 +79,7 @@ export default function Hero() {
         {/* Status badge */}
         <motion.div variants={childVariants} style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(0,245,255,0.06)', border: '1px solid rgba(0,245,255,0.2)',
+          background: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.06)', border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)',
           borderRadius: '100px', padding: '6px 16px',
           marginBottom: '32px',
           fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)',
@@ -149,11 +149,11 @@ export default function Hero() {
               fontFamily: 'Space Mono', fontSize: '13px',
               fontWeight: 700, letterSpacing: '1px',
               textTransform: 'uppercase',
-              boxShadow: '0 0 20px rgba(0,245,255,0.2)',
+              boxShadow: '0 0 20px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)',
               transition: 'all 0.3s',
             }}
-            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 30px rgba(0,245,255,0.35)'}
-            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 20px rgba(0,245,255,0.2)'}
+            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 30px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.35)'}
+            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 20px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)'}
           >
             View Projects
           </motion.button>
@@ -165,14 +165,14 @@ export default function Hero() {
             aria-label="Scroll to contact section"
             style={{
               background: 'transparent', color: 'var(--cyan)',
-              border: '1px solid rgba(0,245,255,0.4)',
+              border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.4)',
               borderRadius: '6px', padding: '14px 32px',
               cursor: 'pointer', fontFamily: 'Space Mono',
               fontSize: '13px', letterSpacing: '1px',
               textTransform: 'uppercase', transition: 'all 0.3s',
             }}
-            onMouseEnter={e => { e.target.style.background = 'rgba(0,245,255,0.08)'; e.target.style.borderColor = 'var(--cyan)' }}
-            onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.borderColor = 'rgba(0,245,255,0.4)' }}
+            onMouseEnter={e => { e.target.style.background = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.08)'; e.target.style.borderColor = 'var(--cyan)' }}
+            onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.borderColor = 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.4)' }}
           >
             Get In Touch
           </motion.button>
@@ -189,11 +189,11 @@ export default function Hero() {
           {['Go', 'Kubernetes', 'Docker', 'AWS', 'Azure'].map(tech => (
             <span key={tech} style={{
               fontFamily: 'Space Mono', fontSize: '12px',
-              color: 'rgba(0,245,255,0.78)',
-              border: '1px solid rgba(0,245,255,0.18)',
+              color: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.78)',
+              border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.18)',
               borderRadius: '999px',
               padding: '6px 12px',
-              background: 'rgba(0,245,255,0.05)',
+              background: 'rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.05)',
             }}>{tech}</span>
           ))}
         </motion.div>
@@ -209,7 +209,7 @@ export default function Hero() {
         <span style={{ fontFamily: 'Space Mono', fontSize: '10px', color: 'rgba(226,232,240,0.3)', letterSpacing: '2px' }}>SCROLL</span>
         <div style={{
           width: '1px', height: '50px',
-          background: 'linear-gradient(to bottom, rgba(0,245,255,0.5), transparent)',
+          background: 'linear-gradient(to bottom, rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.5), transparent)',
           animation: 'float 2s ease-in-out infinite',
         }} />
       </div>
