@@ -18,6 +18,25 @@ import Footer from './components/Footer'
 export default function App() {
   const cursorGlowRef = useRef(null)
 
+  // Theme-reactive color for Threads background (0-1 range)
+  const [themeRgb, setThemeRgb] = useState([0, 245 / 255, 255 / 255])
+
+  useEffect(() => {
+    const readColor = () => {
+      const s = document.documentElement.style
+      const r = parseInt(s.getPropertyValue('--cyan-r')) || 0
+      const g = parseInt(s.getPropertyValue('--cyan-g')) || 245
+      const b = parseInt(s.getPropertyValue('--cyan-b')) || 255
+      setThemeRgb([r / 255, g / 255, b / 255])
+    }
+    readColor()
+    const obs = new MutationObserver(readColor)
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] })
+    return () => obs.disconnect()
+  }, [])
+
+  const threadColor = useMemo(() => themeRgb, [themeRgb])
+
   // Cursor glow effect
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -101,6 +120,16 @@ export default function App() {
           width: '600px', height: '600px',
           background: 'radial-gradient(circle, rgba(var(--cyan-r),var(--cyan-g),var(--cyan-b),0.04) 0%, transparent 70%)',
         }} />
+      </div>
+
+      {/* Threads background */}
+      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.15 }}>
+        <Threads
+          color={threadColor}
+          amplitude={0.8}
+          distance={0.3}
+          enableMouseInteraction={false}
+        />
       </div>
 
       <div className="relative z-10">
