@@ -6,32 +6,32 @@ const certs = [
     name: 'AWS Academy Cloud Foundation',
     issuer: 'AWS Academy',
     date: '2025',
-    file: '/aws academy cloud foundation.pdf',
+    file: '/aws%20academy%20cloud%20foundation.pdf',
     featured: true,
   },
   {
     name: 'Bits and bytes certificates',
     issuer: 'Coursera',
     date: '2025',
-    file: '/Bits and bytes certificate.pdf',
+    file: '/Bits%20and%20bytes%20certificate.pdf',
   },
   {
     name: 'Java Programming',
     issuer: 'Imneo',
     date: '2025',
-    file: '/Java Programming.pdf',
+    file: '/Java%20Programming.pdf',
   },
   {
     name: 'Privacy and security in online social Media',
     issuer: 'NPTEL',
     date: '2025',
-    file: '/Privacy and security in online social Media.pdf',
+    file: '/Privacy%20and%20security%20in%20online%20social%20Media.pdf',
   },
   {
     name: 'Fundamental of network communication',
     issuer: 'Coursera',
     date: '2025',
-    file: '/fundamental of network communication.pdf',
+    file: '/fundamental%20of%20network%20communication.pdf',
   },
 ]
 

@@ -2,7 +2,10 @@ package main
 
 import (
 	"net/http"
+	"net/url"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -62,6 +65,16 @@ func main() {
 	r.Static("/assets", "./dist/assets")
 	r.StaticFile("/favicon.ico", "./dist/favicon.ico")
 	r.NoRoute(func(c *gin.Context) {
+		if strings.HasPrefix(c.Request.URL.Path, "/api") {
+			c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
+			return
+		}
+
+		if filePath, ok := resolveDistFilePath(c.Request.URL.Path); ok {
+			c.File(filePath)
+			return
+		}
+
 		c.File("./dist/index.html")
 	})
 
@@ -70,6 +83,48 @@ func main() {
 		port = "8080"
 	}
 	r.Run(":" + port)
+}
+
+func resolveDistFilePath(rawPath string) (string, bool) {
+	if rawPath == "" || rawPath == "/" {
+		return "", false
+	}
+
+	decodedPath, err := url.PathUnescape(rawPath)
+	if err != nil {
+		return "", false
+	}
+
+	cleaned := filepath.Clean(decodedPath)
+	if cleaned == "." || cleaned == "/" || strings.Contains(cleaned, "..") {
+		return "", false
+	}
+
+	name := strings.TrimPrefix(cleaned, "/")
+	if name == "" || strings.Contains(name, "/") {
+		return "", false
+	}
+
+	directPath := filepath.Join("./dist", name)
+	if info, err := os.Stat(directPath); err == nil && !info.IsDir() {
+		return directPath, true
+	}
+
+	entries, err := os.ReadDir("./dist")
+	if err != nil {
+		return "", false
+	}
+
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+		if strings.EqualFold(entry.Name(), name) {
+			return filepath.Join("./dist", entry.Name()), true
+		}
+	}
+
+	return "", false
 }
 
 func handleGetProjects(c *gin.Context) {

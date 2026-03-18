@@ -93,7 +93,7 @@ export default function Resume() {
               </p>
 
               <a
-                href="/Sarvesh_Resume.pdf"
+                href="/General_CV_Updated.pdf"
                 download="Sarvesh_Ranjan_Resume.pdf"
                 className="resume-download-btn interactive-focus"
               >
@@ -107,14 +107,14 @@ export default function Resume() {
           <div className="glass-card" style={{ padding: '32px', borderRadius: '16px' }}>
             <div style={{ width: '100%', height: '80vh', borderRadius: '10px', overflow: 'hidden' }}>
               <iframe
-                src="/Sarvesh_Resume.pdf"
+                src="/General_CV_Updated.pdf"
                 title="Resume Preview"
                 style={{ width: '100%', height: '100%', border: 'none', borderRadius: '10px' }}
               />
             </div>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
               <a
-                href="/Sarvesh_Resume.pdf"
+                href="/General_CV_Updated.pdf"
                 download="Sarvesh_Ranjan_Resume.pdf"
                 className="resume-download-btn interactive-focus"
               >
