@@ -49,9 +49,9 @@ const achievements = [
     link: 'https://leetcode.com/u/sarvesh69/',
   },
   {
-    title: '112 Problems Solved',
-    countTarget: 112,
-    suffix: '',
+    title: '100+ Problems Solved',
+    countTarget: 100,
+    suffix: '+',
     platform: 'LeetCode',
     line: 'DSA practice across arrays, trees, graphs, and more',
     link: 'https://leetcode.com/u/sarvesh69/',
