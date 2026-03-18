@@ -76,7 +76,7 @@ export default function Navbar() {
     document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const resumeHref = '/Sarvesh_Resume.pdf'
+  const resumeHref = '/General_CV_Updated.pdf'
 
   const onMoreKeyDown = (event) => {
     if (!moreOpen && (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ')) {

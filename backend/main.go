@@ -64,6 +64,7 @@ func main() {
 
 	r.Static("/assets", "./dist/assets")
 	r.StaticFile("/favicon.ico", "./dist/favicon.ico")
+	r.StaticFile("/Sarvesh_Resume.pdf", "./dist/General_CV_Updated.pdf")
 	r.NoRoute(func(c *gin.Context) {
 		if strings.HasPrefix(c.Request.URL.Path, "/api") {
 			c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
