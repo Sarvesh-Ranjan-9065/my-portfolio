@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
-    "gl-matrix": "^3.4.4",
     "gsap": "^3.14.2",
     "motion": "^12.38.0",
     "ogl": "^1.0.11",
@@ -20,8 +19,6 @@
     "three": "^0.183.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.56",
-    "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
