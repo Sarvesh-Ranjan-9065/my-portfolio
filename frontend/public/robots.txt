@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# Disallow admin or private paths if any (currently none)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow all search engines to crawl everything
+Allow: /public/
+Allow: /src/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.pdf
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl-delay (optional, usually not needed for portfolio sites)
+# Crawl-delay: 1
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block bad bots (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
