@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState, useMemo } from 'react'
 import ThemeSwitcher from './components/ThemeSwitcher'
+import BackgroundSwitcher from './components/BackgroundSwitcher'
 import Threads from './extra_UI/background/threads'
+import DotGrid from './extra_UI/background/dot_grid'
+import LightPillar from './extra_UI/background/light_pillers'
+import LightRays from './extra_UI/background/light_rays'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -17,9 +21,18 @@ import Footer from './components/Footer'
 
 export default function App() {
   const cursorGlowRef = useRef(null)
+  const [activeBg, setActiveBg] = useState('threads')
+
+  // Load background preference on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('portfolio-bg')
+    if (saved) setActiveBg(saved)
+  }, [])
 
   // Theme-reactive color for Threads background (0-1 range)
   const [themeRgb, setThemeRgb] = useState([0, 245 / 255, 255 / 255])
+  const [themeHex, setThemeHex] = useState('#00f5ff')
+  const [themeDimHex, setThemeDimHex] = useState('#0891b2')
 
   useEffect(() => {
     const readColor = () => {
@@ -27,7 +40,11 @@ export default function App() {
       const r = parseInt(s.getPropertyValue('--cyan-r')) || 0
       const g = parseInt(s.getPropertyValue('--cyan-g')) || 245
       const b = parseInt(s.getPropertyValue('--cyan-b')) || 255
+      const currentHex = (s.getPropertyValue('--cyan') || '').trim() || '#00f5ff'
+      const currentDimHex = (s.getPropertyValue('--cyan-dim') || '').trim() || '#0891b2'
       setThemeRgb([r / 255, g / 255, b / 255])
+      setThemeHex(currentHex)
+      setThemeDimHex(currentDimHex)
     }
     readColor()
     const obs = new MutationObserver(readColor)
@@ -122,14 +139,48 @@ export default function App() {
         }} />
       </div>
 
-      {/* Threads background */}
-      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.15 }}>
-        <Threads
-          color={threadColor}
-          amplitude={0.8}
-          distance={0.3}
-          enableMouseInteraction={false}
-        />
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {activeBg === 'threads' && (
+          <div className="absolute inset-0" style={{ opacity: 0.15 }}>
+            <Threads color={threadColor} amplitude={0.8} distance={0.3} enableMouseInteraction={false} />
+          </div>
+        )}
+        {activeBg === 'dot-grid' && (
+          <div className="absolute inset-0" style={{ opacity: 0.32 }}>
+            <DotGrid
+              dotSize={10}
+              gap={36}
+              baseColor={themeDimHex}
+              activeColor={themeHex}
+              proximity={130}
+              speedTrigger={140}
+              shockStrength={3.5}
+            />
+          </div>
+        )}
+        {activeBg === 'light-pillars' && (
+          <div className="absolute inset-0" style={{ opacity: 0.42 }}>
+            <LightPillar
+              topColor={themeHex}
+              bottomColor={themeDimHex}
+              intensity={0.35}
+              glowAmount={0.002}
+              noiseIntensity={0.35}
+              interactive={false}
+            />
+          </div>
+        )}
+        {activeBg === 'light-rays' && (
+          <div className="absolute inset-0" style={{ opacity: 0.5 }}>
+            <LightRays
+              raysOrigin="top-center"
+              raysColor={themeHex}
+              raysSpeed={1}
+              pulsating={false}
+            />
+          </div>
+        )}
       </div>
 
       <div className="relative z-10">
@@ -149,6 +200,7 @@ export default function App() {
       </div>
 
       <ThemeSwitcher />
+      <BackgroundSwitcher activeBg={activeBg} onChange={setActiveBg} />
     </div>
   )
 }

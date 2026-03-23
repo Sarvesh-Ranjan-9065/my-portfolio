@@ -79,7 +79,8 @@ function TrainingCertificatePreview() {
           border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.18)',
           background: 'rgba(3,17,31,0.94)',
           boxShadow: '0 0 12px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.06)',
-          minHeight: '320px',
+          minHeight: '340px',
+          aspectRatio: '4 / 3',
         }}
       >
         {previewUrl ? (
@@ -91,14 +92,17 @@ function TrainingCertificatePreview() {
               display: 'block',
               width: '100%',
               height: '100%',
-              objectFit: 'contain',
+              objectFit: 'cover',
+              objectPosition: 'center 56%',
+              transform: 'scale(1.1)',
+              transformOrigin: 'center',
               background: '#03111f',
             }}
           />
         ) : (
           <div
             style={{
-              minHeight: '320px',
+              minHeight: '340px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -141,14 +145,15 @@ export default function Training() {
         >
           <article className="timeline-item glass-card">
             <div className="timeline-dot" />
-            <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(280px, 0.85fr)', gap: '28px', alignItems: 'start' }}>
+            <div className="split-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '24px', alignItems: 'stretch' }}>
               <div>
                 <h3>CSE Pathshala · Jun 2025 - Jul 2025</h3>
-                <p>C++ Programming: OOPs and Data Structures</p>
+                <p>Intensive C++ training focused on OOPs and Data Structures.</p>
                 <ul className="timeline-bullets">
-                  <li>Learned OOP: classes, objects, inheritance, polymorphism, abstraction.</li>
-                  <li>Practiced DSA: arrays, linked lists, stacks, queues, and tree fundamentals.</li>
-                  <li>Built problem-solving ability through structured coding practice.</li>
+                  <li>Built strong OOP foundations: class design, encapsulation, inheritance, and polymorphism.</li>
+                  <li>Solved structured DSA problems on arrays, linked lists, stacks, queues, and trees.</li>
+                  <li>Improved debugging speed and logic building through guided coding drills.</li>
+                  <li>Strengthened problem-solving mindset for interviews and competitive coding.</li>
                 </ul>
               </div>
 

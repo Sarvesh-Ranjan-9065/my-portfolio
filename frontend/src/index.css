@@ -228,7 +228,7 @@ textarea:focus-visible {
 .section-title { font-size: clamp(28px, 5vw, 52px); line-height: 1.1; margin: 10px 0 28px; color: #e2e8f0; }
 
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.project-card { background: #071225; border: 1px solid #123; border-radius: 12px; padding: 20px; transition: all 0.3s ease; }
+.project-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; transition: all 0.3s ease; }
 .project-card:hover { border-color: rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b),0.2); box-shadow: 0 0 10px rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b),0.06); transform: translateY(-2px); }
 .project-card h3 { margin: 0 0 10px; color: #e2e8f0; font-size: 20px; }
 .project-card p { color: #94a3b8; line-height: 1.6; }
