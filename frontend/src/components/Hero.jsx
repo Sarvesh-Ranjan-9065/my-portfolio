@@ -206,7 +206,7 @@ export default function Hero() {
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
         zIndex: 2,
       }}>
-        <span style={{ fontFamily: 'Space Mono', fontSize: '10px', color: 'rgba(226,232,240,0.3)', letterSpacing: '2px' }}>SCROLL</span>
+        <span style={{ fontFamily: 'Space Mono', fontSize: '10px', color: 'rgba(226,232,240,0.3)', letterSpacing: '2px' }}></span>
         <div style={{
           width: '1px', height: '50px',
           background: 'linear-gradient(to bottom, rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.5), transparent)',

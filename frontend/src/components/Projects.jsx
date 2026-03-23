@@ -3,6 +3,15 @@ import SpotlightCard from '../extra_UI/compo/spotlight_card'
 
 const filterTabs = ['All', 'Go', 'Web']
 
+function getProjectImage(title) {
+  const normalized = (title || '').toLowerCase()
+  if (normalized.includes('virtual mall')) return '/ai-virtual-mall.png'
+  if (normalized.includes('air quality')) return '/AQMS.png'
+  if (normalized.includes('movie-crud') || normalized.includes('movie crud')) return '/movie-crud.png'
+  if (normalized.includes('simple-static') || normalized.includes('simple static')) return '/static.png'
+  return ''
+}
+
 function getCategory(tech) {
   if (!tech) return 'Web'
   const t = tech.map(s => s.toLowerCase())
@@ -91,18 +100,23 @@ export default function Projects() {
                 overflow: 'hidden',
               }}
             >
-              {p.badge && (
-                <span style={{
-                  position: 'absolute', top: '14px', right: '14px',
-                  fontFamily: 'Space Mono', fontSize: '10px', letterSpacing: '1px',
-                  color: '#020818', background: 'var(--cyan)',
-                  padding: '3px 8px', borderRadius: '4px', fontWeight: 700,
-                }}>{p.badge}</span>
-              )}
-              <h3>{p.icon ? `${p.icon} ` : ''}{p.title}</h3>
-              <p>{p.description}</p>
 
-              <div className="tech-row">
+              {getProjectImage(p.title) && (
+                <div style={{ marginBottom: '14px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.2)' }}>
+                  <img
+                    src={getProjectImage(p.title)}
+                    alt={`${p.title} preview`}
+                    style={{ width: '100%', height: '168px', objectFit: 'cover', display: 'block' }}
+                  />
+                </div>
+              )}
+
+              <div style={{ marginBottom: '12px' }}>
+                <h3 style={{ marginBottom: '8px' }}>{p.icon ? `${p.icon} ` : ''}{p.title}</h3>
+                <p style={{ margin: 0 }}>{p.description}</p>
+              </div>
+
+              <div className="tech-row" style={{ marginTop: 0 }}>
                 {p.tech?.map((t) => <span key={t} className="chip">{t}</span>)}
               </div>
 
