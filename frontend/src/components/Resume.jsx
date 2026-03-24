@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import SpotlightCard from '../extra_UI/compo/spotlight_card'
+import { trackEvent } from '../utils/analytics'
 
 const topSkills = ['Go', 'Docker', 'Kubernetes', 'AWS', 'REST APIs']
 const projectNames = ['Cloud-Native Portfolio', 'CLI Portfolio', 'AI Virtual Mall', 'Air Quality Monitor']
@@ -96,6 +97,7 @@ export default function Resume() {
                 href="/General_CV_Updated.pdf"
                 download="Sarvesh_Ranjan_Resume.pdf"
                 className="resume-download-btn interactive-focus"
+                onClick={() => trackEvent('resume_download_click', { source: 'resume_brief' })}
               >
                 Download Resume ↓
               </a>
@@ -117,6 +119,7 @@ export default function Resume() {
                 href="/General_CV_Updated.pdf"
                 download="Sarvesh_Ranjan_Resume.pdf"
                 className="resume-download-btn interactive-focus"
+                onClick={() => trackEvent('resume_download_click', { source: 'resume_full_preview' })}
               >
                 Download Resume ↓
               </a>

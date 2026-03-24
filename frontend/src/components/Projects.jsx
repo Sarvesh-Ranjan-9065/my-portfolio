@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import SpotlightCard from '../extra_UI/compo/spotlight_card'
+import { trackEvent } from '../utils/analytics'
 
 const filterTabs = ['All', 'Go', 'Web']
 
@@ -81,6 +82,25 @@ export default function Projects() {
             {tab}
           </button>
         ))}
+      </div>
+
+      <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap', marginBottom: '24px' }}>
+        <a
+          href="#skills"
+          onClick={(e) => { e.preventDefault(); document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' }) }}
+          className="interactive-focus"
+          style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)', textDecoration: 'none', letterSpacing: '1px' }}
+        >
+          See Skills Used in These Projects
+        </a>
+        <a
+          href="#contact"
+          onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
+          className="interactive-focus"
+          style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)', textDecoration: 'none', letterSpacing: '1px' }}
+        >
+          Hire Me for Similar Work
+        </a>
       </div>
 
       <div className="projects-grid">

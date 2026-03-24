@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Magnet from '../extra_UI/animations/magnet'
+import { trackEvent } from '../utils/analytics'
 
 export default function Contact() {
   const [visible, setVisible] = useState(false)
@@ -30,6 +31,7 @@ export default function Contact() {
       })
       const data = await res.json()
       if (data.success) {
+        trackEvent('contact_form_submit_success', { form: 'contact' })
         setStatus('success')
         setForm({ name: '', email: '', message: '' })
       } else setStatus('error')
@@ -102,6 +104,7 @@ export default function Contact() {
                 <Magnet padding={64} magnetStrength={2.1}>
                   <a href={item.href} target="_blank" rel="noreferrer"
                     className="interactive-focus"
+                    onClick={() => trackEvent('contact_outbound_click', { destination: item.label.toLowerCase() })}
                     style={{ fontFamily: 'Space Mono', fontSize: '13px', color: 'rgba(226,232,240,0.6)', textDecoration: 'none' }}
                     onMouseEnter={e => e.target.style.color = 'var(--cyan)'}
                     onMouseLeave={e => e.target.style.color = 'rgba(226,232,240,0.6)'}

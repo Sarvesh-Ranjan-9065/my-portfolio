@@ -55,6 +55,33 @@ export default function About() {
                 marginBottom: i < paragraphs.length - 1 ? '24px' : '32px',
               }}>{p}</p>
             ))}
+
+            <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap', marginBottom: '24px' }}>
+              <a
+                href="#projects"
+                onClick={(e) => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) }}
+                className="interactive-focus"
+                style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)', textDecoration: 'none', letterSpacing: '1px' }}
+              >
+                View Backend and DevOps Projects
+              </a>
+              <a
+                href="#skills"
+                onClick={(e) => { e.preventDefault(); document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' }) }}
+                className="interactive-focus"
+                style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)', textDecoration: 'none', letterSpacing: '1px' }}
+              >
+                Explore Cloud and DevOps Skills
+              </a>
+              <a
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
+                className="interactive-focus"
+                style={{ fontFamily: 'Space Mono', fontSize: '12px', color: 'var(--cyan)', textDecoration: 'none', letterSpacing: '1px' }}
+              >
+                Contact for Opportunities
+              </a>
+            </div>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               {tags.map(tag => (
                 <span key={tag} style={{

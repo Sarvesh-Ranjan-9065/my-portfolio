@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import { trackEvent } from '../utils/analytics'
 
 const roles = [
   "Go Developer",
@@ -140,6 +141,7 @@ export default function Hero() {
             whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: shouldReduceMotion ? 'auto' : 'smooth' })}
+            onClickCapture={() => trackEvent('cta_view_projects_click', { section: 'hero' })}
             className="interactive-focus"
             aria-label="Scroll to projects section"
             style={{
@@ -161,6 +163,7 @@ export default function Hero() {
             whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: shouldReduceMotion ? 'auto' : 'smooth' })}
+            onClickCapture={() => trackEvent('cta_contact_click', { section: 'hero' })}
             className="interactive-focus"
             aria-label="Scroll to contact section"
             style={{
