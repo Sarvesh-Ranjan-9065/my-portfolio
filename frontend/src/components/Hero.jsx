@@ -9,7 +9,7 @@ const roles = [
 ]
 
 const shortBio =
-  "CS student who mostly writes Go and deploys things on Kubernetes. Learning cloud (AWS + Azure) and trying to get better at backend systems one project at a time."
+  "Cloud and DevOps focused engineer in India who builds Go backend systems and deploys them on Kubernetes. Open to full-time roles and freelance backend or cloud projects."
 
 const statusBadge = "Open to Opportunities"
 

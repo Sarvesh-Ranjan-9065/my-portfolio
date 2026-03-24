@@ -39,6 +39,7 @@ type SkillCategory struct {
 
 func main() {
 	r := gin.Default()
+	r.Use(seoHeadersMiddleware())
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
@@ -64,6 +65,8 @@ func main() {
 
 	r.Static("/assets", "./dist/assets")
 	r.StaticFile("/favicon.ico", "./dist/favicon.ico")
+	r.StaticFile("/robots.txt", "./dist/robots.txt")
+	r.StaticFile("/sitemap.xml", "./dist/sitemap.xml")
 	r.StaticFile("/Sarvesh_Resume.pdf", "./dist/General_CV_Updated.pdf")
 	r.NoRoute(func(c *gin.Context) {
 		if strings.HasPrefix(c.Request.URL.Path, "/api") {
@@ -84,6 +87,37 @@ func main() {
 		port = "8080"
 	}
 	r.Run(":" + port)
+}
+
+func seoHeadersMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		path := strings.ToLower(c.Request.URL.Path)
+
+		c.Header("X-Content-Type-Options", "nosniff")
+		c.Header("X-Frame-Options", "SAMEORIGIN")
+		c.Header("Referrer-Policy", "strict-origin-when-cross-origin")
+
+		switch {
+		case strings.HasPrefix(path, "/api/"):
+			c.Header("Cache-Control", "no-store")
+		case strings.HasPrefix(path, "/assets/"):
+			c.Header("Cache-Control", "public, max-age=31536000, immutable")
+		case strings.HasSuffix(path, ".png"),
+			strings.HasSuffix(path, ".jpg"),
+			strings.HasSuffix(path, ".jpeg"),
+			strings.HasSuffix(path, ".svg"),
+			strings.HasSuffix(path, ".webp"),
+			strings.HasSuffix(path, ".ico"),
+			strings.HasSuffix(path, ".pdf"),
+			strings.HasSuffix(path, ".xml"),
+			strings.HasSuffix(path, ".txt"):
+			c.Header("Cache-Control", "public, max-age=86400")
+		case path == "/" || path == "/index.html":
+			c.Header("Cache-Control", "no-cache")
+		}
+
+		c.Next()
+	}
 }
 
 func resolveDistFilePath(rawPath string) (string, bool) {

@@ -54,6 +54,38 @@ export default function App() {
 
   const threadColor = useMemo(() => themeRgb, [themeRgb])
 
+  const personSchema = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Sarvesh Ranjan',
+    url: 'https://my-portfolio-j0fb.onrender.com/',
+    image: 'https://my-portfolio-j0fb.onrender.com/sarvesh.jpg',
+    jobTitle: 'Cloud and DevOps Engineer',
+    description: 'Cloud and DevOps focused engineer building Go backend systems and deployment workflows.',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'IN',
+    },
+    sameAs: [
+      'https://github.com/Sarvesh-Ranjan-9065',
+      'https://linkedin.com/in/sarvesh-ranjan',
+    ],
+    knowsAbout: ['Go', 'Backend Development', 'Docker', 'Kubernetes', 'AWS', 'Azure', 'DevOps'],
+  }), [])
+
+  const websiteSchema = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Sarvesh Portfolio',
+    url: 'https://my-portfolio-j0fb.onrender.com/',
+    inLanguage: 'en-IN',
+    potentialAction: {
+      '@type': 'ContactAction',
+      target: 'https://my-portfolio-j0fb.onrender.com/#contact',
+      name: 'Contact Sarvesh',
+    },
+  }), [])
+
   // Cursor glow effect
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -201,6 +233,9 @@ export default function App() {
 
       <ThemeSwitcher />
       <BackgroundSwitcher activeBg={activeBg} onChange={setActiveBg} />
+
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
     </div>
   )
 }

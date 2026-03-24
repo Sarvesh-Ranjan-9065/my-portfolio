@@ -87,7 +87,7 @@ export default function Contact() {
             padding: '28px',
           }}>
             <p style={{ fontSize: '17px', lineHeight: 1.8, color: 'rgba(226,232,240,0.55)', marginBottom: '32px' }}>
-              Have a project idea, want to collaborate, or just want to say hi? Feel free to reach out.
+              Available for India-based and remote opportunities in backend, cloud, and DevOps work. Have a project idea, want to collaborate, or just want to say hi? Feel free to reach out.
             </p>
 
             {[

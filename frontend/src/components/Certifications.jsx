@@ -133,6 +133,8 @@ function CertCard({ cert }) {
             <img
               src={cert.preview}
               alt={`${cert.name} preview`}
+              loading="lazy"
+              decoding="async"
               style={{
                 width: '100%',
                 height: '100%',

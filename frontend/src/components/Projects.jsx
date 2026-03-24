@@ -106,6 +106,8 @@ export default function Projects() {
                   <img
                     src={getProjectImage(p.title)}
                     alt={`${p.title} preview`}
+                    loading="lazy"
+                    decoding="async"
                     style={{ width: '100%', height: '168px', objectFit: 'cover', display: 'block' }}
                   />
                 </div>
