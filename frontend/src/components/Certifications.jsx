@@ -44,19 +44,20 @@ function CertCard({ cert }) {
   const [isFlipped, setIsFlipped] = useState(false)
 
   return (
-    <SpotlightCard className="!p-0 !bg-transparent !border-0" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.24)">
+    <SpotlightCard className="!p-0 !bg-transparent !border-0 h-full" spotlightColor="rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.24)">
       <article
         className="glass-card"
         onMouseEnter={() => setIsFlipped(true)}
         onMouseLeave={() => setIsFlipped(false)}
         style={{
           borderRadius: '14px',
-          minHeight: '200px',
+          minHeight: '260px',
           border: isFeatured ? '1px solid rgba(var(--cyan-r), var(--cyan-g), var(--cyan-b), 0.3)' : undefined,
           transition: 'all 0.3s ease',
           position: 'relative',
           perspective: '1000px',
           overflow: 'hidden',
+          height: '100%',
         }}
       >
         <div
@@ -64,7 +65,7 @@ function CertCard({ cert }) {
             position: 'relative',
             width: '100%',
             height: '100%',
-            minHeight: '200px',
+            minHeight: '260px',
             transformStyle: 'preserve-3d',
             transition: 'transform 0.35s ease',
             transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
@@ -176,12 +177,12 @@ export default function Certifications() {
   }, [])
 
   return (
-    <section id="certifications" className="section-shell" style={{ padding: '80px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
+    <section id="certificates" className="section-shell" style={{ padding: '80px 48px', maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
       <h2 className="slide-in-heading" style={{
         fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3.5rem)',
         color: '#e2e8f0', lineHeight: 1.1, marginBottom: '28px',
       }}>
-        Certifications
+        Certificates
       </h2>
 
       <div style={{

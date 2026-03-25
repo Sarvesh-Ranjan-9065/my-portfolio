@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import ShinyText from '../extra_UI/animations/shiny_text'
 
 const mainLinks = ['About', 'Projects', 'Skills', 'Contact']
-const moreLinks = ['Achievements', 'Education', 'Training', 'Certifications', 'Fun']
-const allLinks = ['About', 'Achievements', 'Projects', 'Education', 'Training', 'Certifications', 'Skills', 'Resume', 'Fun', 'Contact']
+const moreLinks = ['Achievements', 'Education', 'Training', 'Certificates', 'Fun']
+const allLinks = ['About', 'Achievements', 'Projects', 'Education', 'Training', 'Certificates', 'Skills', 'Resume', 'Fun', 'Contact']
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -73,7 +73,8 @@ export default function Navbar() {
     setActive(id)
     setMobileOpen(false)
     setMoreOpen(false)
-    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
+    const targetId = id === 'Certificates' ? 'certificates' : id.toLowerCase()
+    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const resumeHref = '/General_CV_Updated.pdf'

@@ -21,7 +21,7 @@ export default function About() {
 
   const paragraphs = [
     "Hey, I'm Sarvesh — a CS undergrad at LPU. I spend most of my time writing Go, containerizing things with Docker, and figuring out Kubernetes. Backend development is what I enjoy the most.",
-    "I picked up an AWS Cloud Foundations cert recently and now I'm learning Azure too. I like understanding how cloud infrastructure works instead of just using it.",
+    "I picked up an AWS Cloud Foundations certificate recently and now I'm learning Azure too. I like understanding how cloud infrastructure works instead of just using it.",
     "Outside of building stuff, I solve problems on LeetCode and HackerRank. It helps me think better when I'm writing real code. I learn by doing — building things, breaking them, then fixing them.",
   ]
 
